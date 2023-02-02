@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend application for WhatsGood",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TeamFoodies/WhatsGood.git"
+  },
+  "author": "TeamFoodies",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TeamFoodies/WhatsGood/issues"
+  },
+  "homepage": "https://github.com/TeamFoodies/WhatsGood#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

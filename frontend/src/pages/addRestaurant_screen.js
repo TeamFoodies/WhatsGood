@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     padding: 8,
     marginBottom: 10,
     marginTop: 10,
+    fontSize: 15,
   },
   addButton_container: {
     elevation: 8,

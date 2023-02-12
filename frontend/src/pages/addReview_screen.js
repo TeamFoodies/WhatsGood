@@ -27,30 +27,32 @@ export default function App() {
              <Text style={styles.boxText}> What's Good?</Text>
         </Box>
  
-        <View style={styles.center_container}>
-             <Text style={{fontSize:35}}> Add A Review</Text>
-        </View>
+        <ScrollView>
+            <View style={styles.center_container}>
+                <Text style={{fontSize:35}}> Add A Review</Text>
+            </View>
  
-        <View style={styles.entries_layout}>
-             <Text style={styles.entries_titles}> Rating: </Text>
-             <TextInput style={styles.entryInput} placeholder="0 to 5..." keyboardType='numeric'/>
-        </View>
+            <View style={styles.entries_layout}>
+                <Text style={styles.entries_titles}> Rating: </Text>
+                <TextInput style={styles.entryInput} placeholder="0 to 5..." keyboardType='numeric'/>
+            </View>
  
-        <View style={styles.entries_layout}>
-             <Text style={styles.entries_titles}>     Title: </Text>
-             <TextInput style={styles.entryInput} placeholder="Title of review..." />
-        </View>
+            <View style={styles.entries_layout}>
+                <Text style={styles.entries_titles}>     Title: </Text>
+                <TextInput style={styles.entryInput} placeholder="Title of review..." />
+            </View>
  
-        <View style={styles.entries_layout}>
-             <Text style={styles.entries_titles}>   Body: </Text>
-             <TextInput style={styles.multilineEntryInput}
-                placeholder="Write review..."
-                editable
-                multiline
-                maxLength={200}
-             />
-        </View>
- 
+            <View style={styles.entries_layout}>
+                <Text style={styles.entries_titles}>   Body: </Text>
+                <TextInput style={styles.multilineEntryInput}
+                    placeholder="Write review..."
+                    editable
+                    multiline
+                    maxLength={200}
+                />
+            </View>
+        </ScrollView>
+
         <AddButton>
         </AddButton>
  
@@ -70,7 +72,7 @@ export default function App() {
         borderColor: '#C4DAC2',
         padding: 10,
         margin: 0,
-        marginBottom: 20,
+        marginBottom: 0,
       },
       boxText: {
         fontWeight: 'bold',
@@ -80,6 +82,7 @@ export default function App() {
       center_container: {
         alignItems: 'center',
         marginBottom: 15,
+        marginTop: 20,
       },
       entries_layout: {
         flexDirection: 'row',
@@ -125,6 +128,7 @@ export default function App() {
         paddingHorizontal: 12,
         marginLeft: 20,
         marginRight: 20,
+        marginBottom: 40,
       },
       addButton_Text: {
         fontSize: 24,

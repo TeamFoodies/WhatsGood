@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 
 const Box = ({ children }) => (
@@ -33,7 +33,7 @@ export default function App() {
  
         <View style={styles.entries_layout}>
              <Text style={styles.entries_titles}> Rating: </Text>
-             <TextInput style={styles.entryInput} placeholder="0 to 5..." />
+             <TextInput style={styles.entryInput} placeholder="0 to 5..." keyboardType='numeric'/>
         </View>
  
         <View style={styles.entries_layout}>
@@ -41,7 +41,15 @@ export default function App() {
              <TextInput style={styles.entryInput} placeholder="Title of review..." />
         </View>
  
-        
+        <View style={styles.entries_layout}>
+             <Text style={styles.entries_titles}>   Body: </Text>
+             <TextInput style={styles.multilineEntryInput}
+                placeholder="Write review..."
+                editable
+                multiline
+                maxLength={200}
+             />
+        </View>
  
         <AddButton>
         </AddButton>
@@ -94,6 +102,20 @@ export default function App() {
         marginBottom: 10,
         marginTop: 10,
         fontSize: 15,
+      },
+      multilineEntryInput:{
+        borderWidth: 0,
+        borderColor: 'black',
+        backgroundColor: 'white',
+        width: '65%',
+        height: '70%',
+        marginTop: 10,
+        marginLeft: 10,
+        padding: 8,
+        marginBottom: 10,
+        marginTop: 10,
+        fontSize: 15,
+        paddingTop: 10,
       },
       addButton_container: {
         elevation: 8,

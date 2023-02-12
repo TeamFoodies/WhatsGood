@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Component } from 'react';
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
@@ -20,7 +21,20 @@ const AddButton = ({ onPress, title }) => (
     </TouchableOpacity>
 )
 
-export default function App() {
+export default class App extends Component{
+    constructor(){
+        super();
+        this.state={
+          charCount : '0'
+        }
+      }
+    
+    GetCharCount = (body) =>{
+        var bodyLength = body.length.toString();
+        this.setState({charCount : bodyLength}) ;
+    }
+
+    render(){
     return (
         <View style={styles.app_container}>
         <Box>
@@ -34,23 +48,27 @@ export default function App() {
  
             <View style={styles.entries_layout}>
                 <Text style={styles.entries_titles}> Rating: </Text>
-                <TextInput style={styles.entryInput} placeholder="0 to 5..." keyboardType='numeric'/>
+                <TextInput style={styles.entryInput} placeholder="0.0 to 5.0 ..." keyboardType='numeric'/>
             </View>
  
             <View style={styles.entries_layout}>
                 <Text style={styles.entries_titles}>     Title: </Text>
                 <TextInput style={styles.entryInput} placeholder="Title of review..." />
             </View>
- 
-            <View style={styles.entries_layout}>
+
+            <Text style={styles.characterCount}>max: { this.state.charCount}/200 </Text>
+
+            <View style={styles.bodyEntry_layout}>
                 <Text style={styles.entries_titles}>   Body: </Text>
                 <TextInput style={styles.multilineEntryInput}
                     placeholder="Write review..."
+                    onChangeText={ body => this.GetCharCount(body) }
                     editable
                     multiline
                     maxLength={200}
                 />
             </View>
+
         </ScrollView>
 
         <AddButton>
@@ -59,6 +77,7 @@ export default function App() {
      </View>
     );
   }
+}
 
   const styles = StyleSheet.create({
     app_container: {
@@ -81,13 +100,12 @@ export default function App() {
       },
       center_container: {
         alignItems: 'center',
-        marginBottom: 15,
         marginTop: 20,
       },
       entries_layout: {
         flexDirection: 'row',
         marginLeft: 20,
-        marginBottom: 10,
+        marginTop: 25,
       },
       entries_titles:{
         fontSize: 24,
@@ -120,6 +138,14 @@ export default function App() {
         fontSize: 15,
         paddingTop: 10,
       },
+      bodyEntry_layout: {
+        flexDirection: 'row',
+        marginLeft: 20,
+      },
+      characterCount:{
+        marginLeft: 270,
+        marginTop: 25,
+      },
       addButton_container: {
         elevation: 8,
         backgroundColor: "#C4DAC2",
@@ -136,5 +162,5 @@ export default function App() {
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
-      }
+      },
   });

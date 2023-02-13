@@ -39,8 +39,11 @@ export default function App() {
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity style={styles.btn}>
         <Text style={styles.loginText}>LOGIN</Text> 
+      </TouchableOpacity> 
+      <TouchableOpacity style={styles.btn}>
+        <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
     </View> 
   );
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
     height: 30,
     marginBottom: 30,
   },
-  loginBtn: {
+  btn: {
     width: "80%",
     borderRadius: 25,
     height: 50,

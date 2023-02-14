@@ -1,17 +1,24 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-const logo = require('../../assets/icon.png');
+
+const CustomButton = ({ title, onPress }) => {
+  return (
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
+  );
+};
 
 export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.boxText}>This is a centered box with three buttons</Text>
+        <Text style={styles.boxText}>HOME</Text>
         <View style={styles.buttonContainer}>
-          <Button title="View saved restaurants" onPress={() => {}} />
-          <Button title="Log restaurant" onPress={() => {}} />
-          <Button title="Log out" onPress={() => {}} />
+          <CustomButton title="View saved restaurants" onPress={() => {}} />
+          <CustomButton title="Log restaurant" onPress={() => {}} />
+          <CustomButton title="Log out" onPress={() => {}} />
         </View>
       </View>
     </View>
@@ -38,8 +45,18 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginTop: 20,
+  },
+  button: {
+    backgroundColor: "#FFC300",
+    borderRadius: 20,
+    padding: 10,
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FFFFFF",
   },
 });

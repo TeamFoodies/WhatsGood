@@ -30,7 +30,6 @@ export default function App() {
         />
       </View>
       <TouchableOpacity>
-<<<<<<< Updated upstream
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
       <TouchableOpacity style={styles.btn}>
@@ -40,14 +39,6 @@ export default function App() {
         <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
     </View> 
-=======
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
->>>>>>> Stashed changes
   );
 }
 

@@ -1,23 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  Button,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TextInput, Button, TouchableOpacity, SafeAreaView } from "react-native";
+import Constants from "expo-constants";
 
-const logo = '../../assets/cheese.png';
+const logo = require('../../assets/noodle.png');
 
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-    <View style={styles.container}>
-      <Image style = {styles.image} source={require(logo)} />
+    <SafeAreaView style={styles.container}>
+      <Image style={styles.image} source={logo} />
       <StatusBar style="auto" />
       <View style={styles.inputView}>
         <TextInput
@@ -25,8 +18,8 @@ export default function App() {
           placeholder="Email."
           placeholderTextColor="#003f5c"
           onChangeText={(email) => setEmail(email)}
-        /> 
-      </View> 
+        />
+      </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -34,9 +27,10 @@ export default function App() {
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
-        /> 
-      </View> 
+        />
+      </View>
       <TouchableOpacity>
+<<<<<<< Updated upstream
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
       <TouchableOpacity style={styles.btn}>
@@ -46,17 +40,30 @@ export default function App() {
         <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
     </View> 
+=======
+        <Text style={styles.forgot_button}>Forgot Password?</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.loginBtn}>
+        <Text style={styles.loginText}>LOGIN</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+>>>>>>> Stashed changes
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#959889",
     alignItems: "center",
     justifyContent: "center",
+    paddingTop: Constants.statusBarHeight,
   },
   image: {
     marginBottom: 40,
+    width: "80%",
+    height: undefined,
+    aspectRatio: 1,
   },
   inputView: {
     backgroundColor: "#C4DAC2",

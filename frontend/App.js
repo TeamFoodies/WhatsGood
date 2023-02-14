@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Dimensions} from 'react-native';
 
 //screens
 import  login_screen  from './src/pages/login_screen';

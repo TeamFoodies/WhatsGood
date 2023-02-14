@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+import { StatusBar, Dimensions } from "react-native";
 import React, { useState } from "react";
 import {
   StyleSheet,
@@ -10,16 +10,22 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const logo = '../../assets/cheese.png';
+const { width, height } = Dimensions.get('window');
+const logo = require('../../assets/noodle.png');
 
 export default function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const inputWidth = width * 0.7;
+  const inputHeight = height * 0.05;
+  const btnWidth = width * 0.8;
+  const btnHeight = height * 0.07;
+
   return (
     <View style={styles.container}>
-      <Image style = {styles.image} source={require(logo)} />
+      <Image style = {[styles.image, { height: height * 0.2 }]} source={logo} />
       <StatusBar style="auto" />
-      <View style={styles.inputView}>
+      <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
           placeholder="Email."
@@ -27,7 +33,7 @@ export default function App() {
           onChangeText={(email) => setEmail(email)}
         /> 
       </View> 
-      <View style={styles.inputView}>
+      <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
           placeholder="Password."
@@ -36,21 +42,22 @@ export default function App() {
           onChangeText={(password) => setPassword(password)}
         /> 
         </View> 
-      <View style={styles.inputView}>
+      <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Comfirm Password."
+          placeholder="Confirm Password."
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={[styles.btn, { width: btnWidth, height: btnHeight }]}>
         <Text style={styles.create_acct_text}>CREATE</Text> 
       </TouchableOpacity> 
     </View> 
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -59,29 +66,34 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   image: {
-    marginBottom: 40,
+    width: "100%",
+    resizeMode: 'contain',
+    marginBottom: 0.05 * height,
   },
   inputView: {
     backgroundColor: "#C4DAC2",
     borderRadius: 30,
-    width: "70%",
-    height: 45,
-    marginBottom: 20,
+    marginBottom: 0.03 * height,
     alignItems: "center",
+    flexDirection: 'row',
+    paddingHorizontal: 0.02 * width,
   },
   TextInput: {
-    height: 50,
     flex: 1,
     padding: 10,
     marginLeft: 20,
   },
   btn: {
-    width: "80%",
     borderRadius: 25,
-    height: 50,
+    marginTop: 0.05 * height,
+    backgroundColor: "#C4DAC2",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
-    backgroundColor: "#C4DAC2",
   },
+  create_acct_text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+  }
 });
+

@@ -15,6 +15,7 @@ export default class App extends Component{
     render(){
     return (
         <View style={styles.app_container}>
+
             <View style={styles.restaurantName_layout}>
                 <Text style={styles.restaurantName_text}>Restaurant Name</Text>
             </View>
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 40,
+    marginBottom: 20,
   },
   restaurantName_text:{
     fontSize: 35,

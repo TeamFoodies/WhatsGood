@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 export default function App() {
   return (
     <View style={styles.app_container}>
-       
+       <Text>                  testing</Text>
     </View>
   );
 }

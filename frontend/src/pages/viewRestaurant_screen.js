@@ -54,12 +54,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     textAlign: 'center',
   },
-  titleRectangle: {
-    width: 325,
-    height: 475,
-    borderRadius: 60,
-    backgroundColor: '#C4DAC2',
-  },
   Rectangle_layout:{
     alignItems: 'center',
   },
@@ -83,6 +77,6 @@ const styles = StyleSheet.create({
   Button_Text: {
     fontSize: 24,
     color: 'black',
-    alignSelf: "center",
+    alignSelf: 'center',
   },
 });

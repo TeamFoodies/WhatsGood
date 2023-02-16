@@ -94,25 +94,17 @@ export default function App() {
   const itemList = menuItems.map(menuItem => <Text style={styles.item}>{menuItem.item}   ${menuItem.price} {'\n'} 
                                               Description: {menuItem.description} </Text> )
 
-{/* 
-  itemSeparator = () => {
-    return <Text style={styles.separator} />
-  }
-*/}
   return (
     <View style={styles.container}>
 
-      <Text style={styles.row}>View Menu</Text>
+      <Text style={styles.row}>Menu Items</Text>
       <StatusBar style="auto" />
 
       <View style={styles.menuContainer}>
       <ScrollView>
         {itemList}
-        {/* 
-        itemSeparatorComponent = {itemSeparator}
-        */}
       </ScrollView>
-
+        
       </View>
 
     </View>
@@ -123,27 +115,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 30, 
-    backgroundColor: '#AAACAC',
+    backgroundColor: '#79878D',
   },
   menuContainer: {
     flex: 1,
     padding: 1, 
-    backgroundColor: '#B5BBBB',
+    backgroundColor: '#A0ADB2',
   },
   row: {
     padding: 5, 
     fontSize: 50,
+    color: '#2E7DB7',
     borderBottomColor: 'red',
-    borderBottomWidth: StyleSheet.lineWidth,
+    borderBottomWidth: 5,
   },
   item: {
     fontSize: 20,
-    padding: 12,
-  },
-  separator: {
-    height: 1,
-    width: '100%',
-    backgroundColor: '#CCC',
+    padding: 10,
+    marginTop: 1,
+    backgroundColor: '#D4E5F1',
   },
 
 });

@@ -31,7 +31,7 @@ export default class App extends Component{
     
     GetCharCount = (body) =>{
         var bodyLength = body.length.toString();
-        this.setState({charCount : bodyLength}) ;
+        this.setState({charCount : bodyLength});
     }
 
     render(){

@@ -102,7 +102,7 @@ export default function App() {
 
       <View style={styles.menuContainer}>
       <ScrollView>
-        {itemList}
+      {itemList}
       </ScrollView>
         
       </View>
@@ -114,7 +114,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 30, 
+    padding: 50, 
     backgroundColor: '#79878D',
   },
   menuContainer: {
@@ -123,11 +123,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#A0ADB2',
   },
   row: {
-    padding: 5, 
-    fontSize: 50,
+    padding: 15, 
+    fontSize: 35,
+    textAlign: 'center',
     color: '#2E7DB7',
-    borderBottomColor: 'red',
-    borderBottomWidth: 5,
+
   },
   item: {
     fontSize: 20,

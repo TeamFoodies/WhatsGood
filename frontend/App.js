@@ -7,6 +7,7 @@ import {Dimensions} from 'react-native';
 import  login_screen  from './src/pages/login_screen';
 import addRestaurant_screen from './src/pages/addRestaurant_screen';
 import addReview_screen from './src/pages/addReview_screen';
+import home_screen from './src/pages/home_screen';
 import create_acct_screen from './src/pages/create_acct_screen';
 
 const Stack = createNativeStackNavigator();
@@ -15,8 +16,7 @@ export default function App() {
   return (
     <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
-            
-            <Stack.Screen name="create_acct_screen" component={create_acct_screen} options={{headerShown: false}} />
+            <Stack.Screen name="home_screen" component={home_screen} options={{headerShown: false}} />
           </Stack.Navigator>
         </NavigationContainer>
   );

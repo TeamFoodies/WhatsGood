@@ -1,6 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
+
+const BackButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
+      <Text style={styles.BackButton_text}>{title}Back</Text>
+    </TouchableOpacity>
+)
 
 export default function App() {
     const savedRestaurants = [
@@ -49,6 +55,8 @@ export default function App() {
   
     return (
       <View style={styles.container}>
+        <BackButton>
+        </BackButton>
   
         <Text style={styles.row}>Saved Restaurants</Text>
         <StatusBar style="auto" />
@@ -85,6 +93,20 @@ export default function App() {
       padding: 10,
       marginTop: 1,
       backgroundColor: '#D4E5F1',
+    },
+    BackButton_container: {
+        backgroundColor: "#A6C6DC",
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 12,
+        marginTop: 10,
+        marginLeft: -15,
+        marginRight: 285,
+        marginBottom: -10,
+    },
+    BackButton_text: {
+        fontSize: 15,
+        color: '#D6E3EC',
     },
   
   });

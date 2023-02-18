@@ -7,9 +7,11 @@ import {Dimensions} from 'react-native';
 import  login_screen  from './src/pages/login_screen';
 import addRestaurant_screen from './src/pages/addRestaurant_screen';
 import addReview_screen from './src/pages/addReview_screen';
+import viewMenu_screen from './src/pages/viewMenu_screen';
 import home_screen from './src/pages/home_screen';
 import create_acct_screen from './src/pages/create_acct_screen';
 import viewRestaurant_screen from './src/pages/viewRestaurant_screen';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +19,7 @@ export default function App() {
   return (
     <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="viewRestaurant_screen" component={viewRestaurant_screen} options={{headerShown: false}} />
+            <Stack.Screen name="viewMenu_screen" component={viewMenu_screen} options={{headerShown: false}} />
           </Stack.Navigator>
         </NavigationContainer>
   );

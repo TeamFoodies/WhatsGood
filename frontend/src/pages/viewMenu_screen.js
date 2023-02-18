@@ -15,86 +15,73 @@ export default function App() {
       item: 'Popcorn chicken', 
       price: 8,
       description: 'Savory deep fried chicken with basil',
-      review: 'Fried to perfection, well seasoned and very juicy.'
     },
     {
       id: 2,
       item: 'Stinky Tofu', 
       price: 6,
       description: 'Fermented tofu that is deep fried',
-      review: 'Potent smell but the taste is worth it.'
     },
     {
       id: 3,
       item: 'Popcorn chicken', 
       price: 8,
       description: 'Savory deep fried chicken with basil',
-      review: 'Fried to perfection, well seasoned and very juicy.'
     },
     {
       id: 4,
       item: 'Stinky Tofu', 
       price: 6,
       description: 'Fermented tofu that is deep fried',
-      review: 'Potent smell but the taste is worth it.'
     },
     {
       id: 5,
       item: 'Popcorn chicken', 
       price: 8,
       description: 'Savory deep fried chicken with basil',
-      review: 'Fried to perfection, well seasoned and very juicy.'
     },
     {
       id: 6,
       item: 'Stinky Tofu', 
       price: 6,
       description: 'Fermented tofu that is deep fried',
-      review: 'Potent smell but the taste is worth it.'
     },
     {
       id: 7,
       item: 'Popcorn chicken', 
       price: 8,
       description: 'Savory deep fried chicken with basil',
-      review: 'Fried to perfection, well seasoned and very juicy.'
     },
     {
       id: 8,
       item: 'Stinky Tofu', 
       price: 6,
       description: 'Fermented tofu that is deep fried',
-      review: 'Potent smell but the taste is worth it.'
     },
     {
       id: 9,
       item: 'Popcorn chicken', 
       price: 8,
       description: 'Savory deep fried chicken with basil',
-      review: 'Fried to perfection, well seasoned and very juicy.'
     },
     {
       id: 10,
       item: 'Stinky Tofu', 
       price: 6,
       description: 'Fermented tofu that is deep fried',
-      review: 'Potent smell but the taste is worth it.'
     },
     {
       id: 11,
       item: 'Popcorn chicken', 
       price: 8,
       description: 'Savory deep fried chicken with basil',
-      review: 'Fried to perfection, well seasoned and very juicy.'
     },
     {
       id: 12,
       item: 'Stinky Tofu', 
       price: 6,
       description: 'Fermented tofu that is deep fried',
-      review: 'Potent smell but the taste is worth it.'
     },
-
   ]
 
   const itemList = menuItems.map(menuItem => <Text style={styles.item}>{menuItem.item}   ${menuItem.price} {'\n'} 
@@ -109,10 +96,9 @@ export default function App() {
       <StatusBar style="auto" />
 
       <View style={styles.menuContainer}>
-      <ScrollView>
-      {itemList}
-      </ScrollView>
-        
+        <ScrollView>
+        {itemList}
+        </ScrollView>
       </View>
 
     </View>
@@ -135,7 +121,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     textAlign: 'center',
     color: '#2E7DB7',
-
   },
   item: {
     fontSize: 20,

@@ -38,7 +38,7 @@ export default function App() {
       <TouchableOpacity style={styles.btn}>
         <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
-    </View> 
+    </SafeAreaView> 
   );
 }
 

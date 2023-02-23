@@ -5,9 +5,22 @@ import Constants from "expo-constants";
 
 const logo = require('../../assets/noodle.png');
 
-export default function App() {
+export default function App({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleForgotPassword = () => {
+    navigation.navigate("ForgotPasswordScreen");
+  };
+
+  const handleLogin = () => {
+    navigation.navigate("HomeScreen");
+  };
+
+  const handleCreateAccount = () => {
+    navigation.navigate("CreateAccountScreen");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.image} source={logo} />
@@ -29,13 +42,13 @@ export default function App() {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleForgotPassword}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('home_screen')}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('create_acct_screen')}>
         <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
     </SafeAreaView> 

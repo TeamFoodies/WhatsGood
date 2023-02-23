@@ -22,7 +22,7 @@ export default class App extends Component{
 
             <View style={styles.Rectangle_layout}>
                 <View style={styles.buttonRectangle}>
-                    <NavigationButton title="Home" onPress={() => {}} />
+                    <NavigationButton title="Home" onPress={() => NavigationButton.navigate('home_screen')} />
                     <NavigationButton title="Add Review" onPress={() => {}} />
                     <NavigationButton title="View Reviews" onPress={() => {}} />
                     <NavigationButton title="Edit Menu" onPress={() => {}} />

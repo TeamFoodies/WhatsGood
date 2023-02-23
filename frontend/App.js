@@ -9,14 +9,18 @@ import addRestaurant_screen from './src/pages/addRestaurant_screen';
 import addReview_screen from './src/pages/addReview_screen';
 import home_screen from './src/pages/home_screen';
 import create_acct_screen from './src/pages/create_acct_screen';
+import viewReview_screen from './src/pages/viewReview_screen';
 
 const Stack = createNativeStackNavigator();
+
+//<Stack.Screen name="home_screen" component={home_screen} options={{headerShown: false}} />
+
 
 export default function App() {
   return (
     <NavigationContainer>
           <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="home_screen" component={home_screen} options={{headerShown: false}} />
+            <Stack.Screen name='viewReview_screen' component={viewReview_screen} options={{headerShown: false}}/>
           </Stack.Navigator>
         </NavigationContainer>
   );

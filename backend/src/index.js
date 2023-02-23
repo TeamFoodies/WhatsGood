@@ -9,6 +9,7 @@ const fs = require("fs");
 const loginRoute = require("./routes/login.route");
 
 const app = express();
+app.use(express.json());
 const PORT = 4000;
 https
   .createServer(

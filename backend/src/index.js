@@ -6,7 +6,7 @@ const express = require("express");
 const fs = require("fs");
 
 // Routes
-const loginRoute = require('./routes/login.route');
+const loginRoute = require("./routes/login.route");
 
 const app = express();
 const PORT = 4000;
@@ -19,12 +19,13 @@ https
     app
   )
   .listen(PORT, () => {
-    console.log('Server running on port ' + PORT)
+    console.log(`Server running on port ${PORT}`)
   });
 
 // Routes
-app.use('/login', loginRoute);
+app.use("/login", loginRoute);
 
-app.get('/', (req, res)=>{
+app.get("/", (req, res)=>{
+  console.log("GET /")
   res.send("API homepage of What's Good.")
 })

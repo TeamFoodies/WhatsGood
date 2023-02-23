@@ -21,7 +21,8 @@ const validation_error_response = { response: 400, error: "Invalid login request
 const unauthorized_response = { response: 401, error: "Invalid username or password." };
 
 router.post("/", function(request, response) {
-  console.log("POST /login")
+  console.log("POST /login");
+  console.log(request.body);
 
   const { error, _ } = schema.validate(request.body);
   if (error) {
@@ -34,6 +35,7 @@ router.post("/", function(request, response) {
   if (!key) {
     response.writeHead(401, header);
     response.end(JSON.stringify(unauthorized_response));
+    return;
   }
 
   response.writeHead(200, header);

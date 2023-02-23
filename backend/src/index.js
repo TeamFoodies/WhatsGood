@@ -5,6 +5,9 @@ const https = require("https");
 const express = require("express");
 const fs = require("fs");
 
+// Routes
+const loginRoute = require('./routes/login.route');
+
 const app = express();
 const PORT = 4000;
 https
@@ -18,6 +21,9 @@ https
   .listen(PORT, () => {
     console.log('Server running on port ' + PORT)
   });
+
+// Routes
+app.use('/login', loginRoute);
 
 app.get('/', (req, res)=>{
   res.send("API homepage of What's Good.")

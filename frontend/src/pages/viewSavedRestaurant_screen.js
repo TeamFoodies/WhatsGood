@@ -49,7 +49,7 @@ export default function App() {
 
     ]
   
-    const itemList = savedRestaurants.map(savedRestaurant => <Text style={styles.item}>{savedRestaurant.name}    {savedRestaurant.distance} miles {'\n'} 
+    const itemList = savedRestaurants.map(savedRestaurant => <Text key={savedRestaurant.id} style={styles.item}>{savedRestaurant.name}    {savedRestaurant.distance} miles {'\n'}
                                                              Address: {savedRestaurant.address} </Text> )
 
   

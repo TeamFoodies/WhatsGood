@@ -20,13 +20,12 @@ export default function App() {
   return (
     <NavigationContainer>
           <Stack.Navigator initialRouteName="ViewMenu">
-          <Stack.Screen name="viewMenu_screen" component={viewMenu_screen} options={{headerShown: false}} />
             <Stack.Screen name="home_screen" component={home_screen} options={{headerShown: false}} />
             <Stack.Screen name="viewRestaurant_screen" component={viewRestaurant_screen} options={{headerShown: false}} />
             <Stack.Screen name="login_screen" component={login_screen} options={{headerShown: false}} />
             <Stack.Screen name="addRestaurant_screen" component={addRestaurant_screen} options={{headerShown: false}} />
             <Stack.Screen name="addReview_screen" component={addReview_screen} options={{headerShown: false}} />
-           
+            <Stack.Screen name="viewMenu_screen" component={viewMenu_screen} options={{headerShown: false}} />
             <Stack.Screen name="create_acct_screen" component={create_acct_screen} options={{headerShown: false}} />
             <Stack.Screen name="viewSavedRestaurant_screen" component={viewSavedRestaurant_screen} options={{headerShown: false}} />
           </Stack.Navigator>

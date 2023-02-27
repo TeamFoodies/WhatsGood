@@ -28,7 +28,7 @@ export default function App() {
        </Box>
 
        <View style={styles.center_container}>
-            <Text style={{fontSize:35}}> Add A Restuarant</Text>
+            <Text style={styles.subtitle_Text}> Add A Restuarant</Text>
        </View>
 
        <View style={styles.entries_layout}>
@@ -42,7 +42,7 @@ export default function App() {
        </View>
 
        <View style={styles.center_container}>
-            <Text style={{fontSize:30}}> INSERT MAP </Text>
+            <Text style={styles.subtitle_Text}> INSERT MAP </Text>
        </View>
 
        <AddButton>
@@ -112,5 +112,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
-  }
+  },
+  subtitle_Text:{
+    fontSize: 35,
+  },
 });

@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
 
-const userController = require("../controllers/userController.route");
+const create_header = require("../scripts/create_header.script");
+const login_controller = require("../controllers/login.controller");
 
 const schema = Joi.object().keys({
   username: Joi.string()
@@ -14,7 +15,7 @@ const schema = Joi.object().keys({
     .required()
 });
 
-const header = {"Content-Type": "text/json"};
+const header = create_header("application/json");
 
 // Error responses
 const validation_error_response = { response: 400, error: "Invalid login request." };
@@ -31,7 +32,7 @@ router.post("/", function(request, response) {
     return;
   }
 
-  const key = userController.login(request.body.username, request.body.password);
+  const key = login_controller.login(request.body.username, request.body.password);
   if (!key) {
     response.writeHead(401, header);
     response.end(JSON.stringify(unauthorized_response));

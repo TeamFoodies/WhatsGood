@@ -6,8 +6,8 @@ const express = require("express");
 const fs = require("fs");
 
 // Routes
-const indexRoute = require("./routes/index.route");
-const loginRoute = require("./routes/login.route");
+const index_route = require("./routes/index.route");
+const login_route = require("./routes/login.route");
 
 const app = express();
 app.use(express.json());
@@ -25,5 +25,5 @@ https
   });
 
 // Routes
-app.use("/", indexRoute);
-app.use("/login", loginRoute);
+app.use("/", index_route);
+app.use("/login", login_route);

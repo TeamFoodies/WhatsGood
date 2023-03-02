@@ -1,5 +1,15 @@
+const { mongo } = require('./database.controller');
+
 // Temporary holder for authorized keys
 const authorizedKeys = [ 'EXAMPLE_KEY' ];
+
+// Returns if the username is taken (useful during account creation)
+async function isUsernameTaken(username) {
+  const entry = await mongo().db('whatsgood').collection('users').findOne({username: username});
+  console.log(entry);
+  console.log(entry !== undefined);
+  return entry !== undefined;
+}
 
 // Returns the authorized key
 function login(username, password) {
@@ -13,3 +23,4 @@ function login(username, password) {
 
 exports.authorizedKeys = authorizedKeys;
 exports.login = login;
+exports.isUsernameTaken = isUsernameTaken;

@@ -6,7 +6,7 @@ import Constants from "expo-constants";
 const logo = require('../../assets/noodle.png');
 
 export default function App() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   return (
     <SafeAreaView style={styles.container}>
@@ -17,7 +17,7 @@ export default function App() {
           style={styles.TextInput}
           placeholder="Username"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View>
       <View style={styles.inputView}>
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
-    alignSelf: "center",
   },
   forgot_button: {
     height: 30,

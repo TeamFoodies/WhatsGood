@@ -1,53 +1,57 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
-      <Text style={styles.BackButton_text}>{title}Back</Text>
+      <Text style={styles.BackButton_text}>{title}</Text>
     </TouchableOpacity>
 )
 
 export default function App() {
-    const savedRestaurants = [
-      {
-        id: 1,
-        name: 'Olive Garden', 
-        distance: 8.00,
-        address: '1538 S. Altar Drive, 97021, CA',
-      },
-      {
-        id: 2,
-        name: 'Quickly', 
-        distance: 16.30,
-        address: '1495 Dumpling Street, 91250, CA',
-      },
-      {
-        id: 3,
-        name: 'Starbucks', 
-        distance: 8.00,
-        address: '1152 E. Gooby Blvd, 95621, CA',
-      },
-      {
-        id: 4,
-        name: 'In-N-Out', 
-        distance: 2.13,
-        address: '1796 Crypto Street, 91250, CA',
-      },
-      {
-        id: 5,
-        name: 'Oyster Depot', 
-        distance: 3.50,
-        address: '1566 Urchin Drive, 90236, CA',
-      },
-      {
-        id: 6,
-        name: 'Taco Bell', 
-        distance: 11.32,
-        address: '1222 Fleming Street, 91400, CA',
-      },
+  const navigation = useNavigation();
 
-    ]
+  const savedRestaurants = [
+    {
+      id: 1,
+      name: 'Olive Garden', 
+      distance: 8.00,
+      address: '1538 S. Altar Drive, 97021, CA',
+    },
+    {
+      id: 2,
+      name: 'Quickly', 
+      distance: 16.30,
+      address: '1495 Dumpling Street, 91250, CA',
+    },
+    {
+      id: 3,
+      name: 'Starbucks', 
+      distance: 8.00,
+      address: '1152 E. Gooby Blvd, 95621, CA',
+    },
+    {
+      id: 4,
+      name: 'In-N-Out', 
+      distance: 2.13,
+      address: '1796 Crypto Street, 91250, CA',
+    },
+    {
+      id: 5,
+      name: 'Oyster Depot', 
+      distance: 3.50,
+      address: '1566 Urchin Drive, 90236, CA',
+    },
+    {
+      id: 6,
+      name: 'Taco Bell', 
+      distance: 11.32,
+      address: '1222 Fleming Street, 91400, CA',
+    },
+
+  ]
   
     const itemList = savedRestaurants.map(savedRestaurant => <Text key={savedRestaurant.id} style={styles.item}>{savedRestaurant.name}    {savedRestaurant.distance} miles {'\n'}
                                                              Address: {savedRestaurant.address} </Text> )
@@ -55,15 +59,14 @@ export default function App() {
   
     return (
       <View style={styles.container}>
-        <BackButton>
-        </BackButton>
+        <BackButton onPress={() => navigation.navigate('home_screen')} title = "Back"/>
   
         <Text style={styles.row}>Saved Restaurants</Text>
         <StatusBar style="auto" />
   
         <View style={styles.menuContainer}>
           <ScrollView>
-          {itemList}
+            {itemList}
           </ScrollView>
         </View>
   

@@ -13,13 +13,17 @@ import {
 const { width, height } = Dimensions.get('window');
 const logo = require('../../assets/noodle.png');
 
-export default function App() {
+export default function App({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const inputWidth = width * 0.7;
   const inputHeight = height * 0.05;
   const btnWidth = width * 0.8;
   const btnHeight = height * 0.07;
+
+  const handleCreateAccount = () => {
+    navigation.navigate('home_screen'); // replace 'NewPage' with the actual name of your new page
+  };
 
   return (
     <View style={styles.container}>
@@ -51,7 +55,7 @@ export default function App() {
           onChangeText={(password) => setPassword(password)}
         /> 
       </View>
-      <TouchableOpacity style={[styles.btn, { width: btnWidth, height: btnHeight }]}>
+      <TouchableOpacity style={[styles.btn, { width: btnWidth, height: btnHeight }]} onPress={handleCreateAccount}>
         <Text style={styles.create_acct_text}>CREATE</Text> 
       </TouchableOpacity> 
     </View> 
@@ -96,4 +100,3 @@ const styles = StyleSheet.create({
     color: '#333',
   }
 });
-

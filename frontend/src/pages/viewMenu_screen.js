@@ -1,14 +1,18 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const BackButton = ({ onPress, title }) => (
-  <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
-    <Text style={styles.BackButton_text}>{title}Back</Text>
-  </TouchableOpacity>
+    <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
+      <Text style={styles.BackButton_text}>{title}</Text>
+    </TouchableOpacity>
 )
 
 export default function App() {
+  const navigation = useNavigation();
+
   const menuItems = [
     {
       id: 1,
@@ -89,8 +93,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <BackButton>
-      </BackButton>
+      <BackButton onPress={() => navigation.navigate('viewRestaurant_screen')} title = "Back"/>
       
       <Text style={styles.row}>Menu Items</Text>
       <StatusBar style="auto" />

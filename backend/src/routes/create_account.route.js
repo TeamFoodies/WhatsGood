@@ -17,6 +17,9 @@ const schema = Joi.object().keys({
 
 // Invalid schema response
 const validation_error_response = { response: 400, error: 'Invalid login request.' };
+const username_taken_response = { response: 400, error: 'Username is already taken.' };
+const success_response = { response: 200, message: 'Login success.' };
+const internal_error_response = { response: 500, error: 'Internal error occurred.' };
 
 router.post('/', (request, response) => {
   console.log('POST /create_account');
@@ -29,10 +32,21 @@ router.post('/', (request, response) => {
     return;
   }
 
-  login_controller.isUsernameTaken(value.username).then();
+  login_controller.createAccount(value.username, value.password)
+    .then((result) => {
+      if (!result) {
+        response.writeHead(400, headers.JSON);
+        response.end(JSON.stringify(username_taken_response));
+        return;
+      }
 
-  response.writeHead(200, headers.JSON);
-  response.end(JSON.stringify({message: 'To be implemented!'}));
+      response.writeHead(200, headers.JSON);
+      response.end(JSON.stringify(success_response));
+    })
+    .catch(() => {
+      response.writeHead(500, headers.JSON);
+      response.end(JSON.stringify(internal_error_response));
+    });
 });
 
 module.exports = router;

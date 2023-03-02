@@ -18,28 +18,35 @@ const schema = Joi.object().keys({
 // Error responses
 const validation_error_response = { response: 400, error: 'Invalid login request.' };
 const unauthorized_response = { response: 401, error: 'Invalid username or password.' };
+const internal_error_response = { response: 500, error: 'Internal error occurred.' };
 
 router.post('/', function(request, response) {
   console.log('POST /login');
   console.dir(request.body);
 
-  const { error, _ } = schema.validate(request.body);
+  const { error, value } = schema.validate(request.body);
   if (error) {
     response.writeHead(400, headers.JSON);
     response.end(JSON.stringify(validation_error_response));
     return;
   }
 
-  const key = login_controller.login(request.body.username, request.body.password);
-  if (!key) {
-    response.writeHead(401, headers.JSON);
-    response.end(JSON.stringify(unauthorized_response));
-    return;
-  }
+  login_controller.login(value.username, value.password)
+    .then(key => {
+      if (!key) {
+        response.writeHead(401, headers.JSON);
+        response.end(JSON.stringify(unauthorized_response));
+        return;
+      }
 
-  response.writeHead(200, headers.JSON);
-  const valid_response = { response: 200, key: key };
-  response.end(JSON.stringify(valid_response));
+      response.writeHead(200, headers.JSON);
+      const valid_response = { response: 200, key: key };
+      response.end(JSON.stringify(valid_response));
+    })
+    .catch(() => {
+      response.writeHead(500, headers.JSON);
+      response.end(JSON.stringify(internal_error_response));
+    });
 });
 
 module.exports = router;

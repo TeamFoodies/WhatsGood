@@ -1,29 +1,29 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Joi = require("joi");
+const Joi = require('joi');
 
-const create_header = require("../scripts/create_header.script");
-const login_controller = require("../controllers/login.controller");
+const create_header = require('../scripts/create_header.script');
+const login_controller = require('../controllers/login.controller');
 
 const schema = Joi.object().keys({
   username: Joi.string()
     .min(3)
     .max(20)
-    .regex(RegExp("^[a-zA-Z0-9_]+"))
+    .regex(RegExp('^[a-zA-Z0-9_]+'))
     .required(),
   password: Joi.string()
     .required()
 });
 
-const header = create_header("application/json");
+const header = create_header('application/json');
 
 // Error responses
-const validation_error_response = { response: 400, error: "Invalid login request." };
-const unauthorized_response = { response: 401, error: "Invalid username or password." };
+const validation_error_response = { response: 400, error: 'Invalid login request.' };
+const unauthorized_response = { response: 401, error: 'Invalid username or password.' };
 
-router.post("/", function(request, response) {
-  console.log("POST /login");
-  console.log(request.body);
+router.post('/', function(request, response) {
+  console.log('POST /login');
+  console.dir(request.body);
 
   const { error, _ } = schema.validate(request.body);
   if (error) {

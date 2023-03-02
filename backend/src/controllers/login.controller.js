@@ -7,8 +7,8 @@ const authorizedKeys = [ 'EXAMPLE_KEY' ];
 async function isUsernameTaken(username) {
   const entry = await mongo().db('whatsgood').collection('users').findOne({username: username});
   console.log(entry);
-  console.log(entry !== undefined);
-  return entry !== undefined;
+  console.log(entry !== null);
+  return entry !== null;
 }
 
 // Returns the authorized key

@@ -13,8 +13,6 @@ import viewReview_screen from './src/pages/viewReview_screen';
 
 const Stack = createNativeStackNavigator();
 
-//<Stack.Screen name="home_screen" component={home_screen} options={{headerShown: false}} />
-
 
 export default function App() {
   return (

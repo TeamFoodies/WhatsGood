@@ -3,6 +3,8 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Box = ({ children }) => (
     <View style={styles.box}>
@@ -21,6 +23,7 @@ const AddButton = ({ onPress, title }) => (
 )
 
 export default function App() {
+  const navigation = useNavigation();
   return (
     <View style={styles.app_container}>
        <Box>
@@ -28,7 +31,7 @@ export default function App() {
        </Box>
 
        <View style={styles.center_container}>
-            <Text style={{fontSize:35}}> Add A Restuarant</Text>
+            <Text style={styles.subtitle_Text}> Add A Restuarant</Text>
        </View>
 
        <View style={styles.entries_layout}>
@@ -42,10 +45,10 @@ export default function App() {
        </View>
 
        <View style={styles.center_container}>
-            <Text style={{fontSize:30}}> INSERT MAP </Text>
+            <Text style={styles.subtitle_Text}> INSERT MAP </Text>
        </View>
 
-       <AddButton>
+       <AddButton onPress={() => navigation.navigate('viewRestaurant_screen')}>
        </AddButton>
 
     </View>
@@ -112,5 +115,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase"
-  }
+  },
+  subtitle_Text:{
+    fontSize: 35,
+  },
 });

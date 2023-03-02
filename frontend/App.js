@@ -12,7 +12,7 @@ import home_screen from './src/pages/home_screen';
 import create_acct_screen from './src/pages/create_acct_screen';
 import viewRestaurant_screen from './src/pages/viewRestaurant_screen';
 import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen'
-import editMenuPage_screen from './src/pages/editMenuPage'
+import editMenuPage_screen from './src/pages/editMenuPage2'
 
 
 const Stack = createNativeStackNavigator();

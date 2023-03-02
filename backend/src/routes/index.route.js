@@ -5,8 +5,8 @@ const headers = require('../scripts/headers.script');
 
 router.get('/', (request, response) => {
   console.log('GET /');
-  response.writeHeader(200, headers.JSON);
-  response.send("Welcome to What's Good API");
+  response.writeHead(200, headers.JSON);
+  response.end("Welcome to What's Good API");
 });
 
 module.exports = router;

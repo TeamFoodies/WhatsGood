@@ -6,6 +6,7 @@ const express = require("express");
 const fs = require("fs");
 
 // Routes
+const indexRoute = require("./routes/index.route");
 const loginRoute = require("./routes/login.route");
 
 const app = express();
@@ -24,9 +25,5 @@ https
   });
 
 // Routes
+app.use("/", indexRoute);
 app.use("/login", loginRoute);
-
-app.get("/", (req, res)=>{
-  console.log("GET /")
-  res.send("API homepage of What's Good.")
-})

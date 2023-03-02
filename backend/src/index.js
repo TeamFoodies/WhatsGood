@@ -1,3 +1,9 @@
+// Environment
+require('dotenv').config();
+
+// Initialize mongo connection - close application if no connection string specified
+if (!require('./controllers/database.controller').mongo()) return;
+
 // Starter code: https://adamtheautomator.com/https-nodejs/
 
 // Dependencies
@@ -7,6 +13,7 @@ const fs = require('fs');
 
 // Routes
 const index_route = require('./routes/index.route');
+const create_account_route = require('./routes/create_account.route');
 const login_route = require('./routes/login.route');
 
 const app = express();
@@ -26,4 +33,5 @@ https
 
 // Routes
 app.use('/', index_route);
+app.use('/create_account', create_account_route);
 app.use('/login', login_route);

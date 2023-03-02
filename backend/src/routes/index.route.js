@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const create_header = require('../scripts/create_header.script');
+const headers = require('../scripts/headers.script');
 
 router.get('/', (request, response) => {
   console.log('GET /');
-  response.writeHeader(200, create_header('text/plain'));
-  response.send("Welcome to What's Good API");
+  response.writeHead(200, headers.JSON);
+  response.end("Welcome to What's Good API");
 });
 
 module.exports = router;

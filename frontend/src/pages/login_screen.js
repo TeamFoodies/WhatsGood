@@ -8,19 +8,13 @@ const logo = require('../../assets/noodle.png');
 export default function App({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [authKey, setAuthKey] = useState("");
 
   const handleForgotPassword = () => {
     navigation.navigate("ForgotPasswordScreen");
   };
 
   const handleLogin = () => {
-    // Check if authKey is valid before navigating to HomeScreen
-    if (authKey === "123456") {
-      navigation.navigate("HomeScreen");
-    } else {
-      alert("Invalid authorization key");
-    }
+    navigation.navigate("HomeScreen");
   };
 
   const handleCreateAccount = () => {
@@ -48,21 +42,13 @@ export default function App({ navigation }) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Authorization Key."
-          placeholderTextColor="#003f5c"
-          onChangeText={(key) => setAuthKey(key)}
-        />
-      </View>
       <TouchableOpacity onPress={handleForgotPassword}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.btn} onPress={handleLogin}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('home_screen')}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.btn} onPress={handleCreateAccount}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('create_acct_screen')}>
         <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
     </SafeAreaView> 

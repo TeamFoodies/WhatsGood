@@ -1,6 +1,16 @@
 import React, { Component } from "react";
 //import { StatusBar } from "expo-status-bar";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from "react-native";
+import { SafeAreaView } from "react-navigation";
+
+
+const MenuButton = ({ text }) => {
+    return (
+        <TouchableOpacity style={styles.editButton}>
+            <Text style={styles.text}>{text}</Text>
+        </TouchableOpacity>
+    )
+};
 
 
 export default class Inputs extends Component {
@@ -12,8 +22,8 @@ export default class Inputs extends Component {
     handleItem = (text) => {
         this.setState({ menu_item: text })
     }
-    handlePrice = (text) => {
-        this.setState({ price: text })
+    handlePrice = (number) => {
+        this.setState({ price: number })
     }
     handleDescription = (text) => {
         this.setState({ description: text })
@@ -26,6 +36,7 @@ export default class Inputs extends Component {
         return (
             <ScrollView>
                 <View style = {styles.container}>
+                    <Text style={styles.row}>What's Good?</Text>
                     <TextInput style={styles.input}
                         underlineColorAndroid = "transparent"
                         placeholder = "Item name"
@@ -47,7 +58,7 @@ export default class Inputs extends Component {
                         autoCapitalize = "none"
                         onChangeText = {this.handleDescription}/>
                 </View>
-                <View style={{flexDirection: "row"}}>
+                <View style={styles.buttonStyle}>
                     <TouchableOpacity
                         style = {styles.editButton}
                         onPress = {
@@ -71,7 +82,16 @@ export default class Inputs extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         paddingTop: 23,
+        justifyContent: 'center',
+        backgroundColor: '79878D',
+    },
+    row: {
+        padding: 15, 
+        fontSize: 35,
+        textAlign: 'center',
+        color: '#2E7DB7',
     },
     input: {
         margin: 15,
@@ -105,5 +125,10 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
+    }, 
+    buttonStyle: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-around",
     },
 });

@@ -43,7 +43,8 @@ router.post('/', function(request, response) {
       const valid_response = { response: 200, key: key };
       response.end(JSON.stringify(valid_response));
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       response.writeHead(500, headers.JSON);
       response.end(JSON.stringify(internal_error_response));
     });

@@ -2,7 +2,7 @@
 require('dotenv').config();
 
 // Initialize mongo connection - close application if no connection string specified
-if (!require('./controllers/database.controller').mongo()) return;
+if (!require('./controllers/database.controller').mongo()) process.exit(1);
 
 // Starter code: https://adamtheautomator.com/https-nodejs/
 

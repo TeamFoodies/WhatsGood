@@ -1,4 +1,4 @@
-const KEY_TIMEOUT_MS = 1;
+const KEY_TIMEOUT_MS = 300000;
 
 // Represents an authenticated user
 module.exports = class Authorization {

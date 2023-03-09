@@ -2,7 +2,7 @@ import React, { Component } from "react";
 //import { StatusBar } from "expo-status-bar";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from "react-native";
 import { SafeAreaView } from "react-navigation";
-
+import { useNavigation } from '@react-navigation/native'
 
 const MenuButton = ({ text }) => {
     return (
@@ -12,8 +12,16 @@ const MenuButton = ({ text }) => {
     )
 };
 
+const BackButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
+      <Text style={styles.buttonText}>{title}</Text>
+    </TouchableOpacity>
+  )
 
-export default class Inputs extends Component {
+
+export default function App() {
+    const navigation = useNavigation();
+
     state = {
         menu_item: '',
         price: '',
@@ -32,51 +40,50 @@ export default class Inputs extends Component {
         alert('Item ' + item + ' updated')
     }
 
-    render() {
-        return (
-            <ScrollView>
-                <View style = {styles.container}>
-                    <Text style={styles.row}>What's Good?</Text>
-                    <TextInput style={styles.input}
-                        underlineColorAndroid = "transparent"
-                        placeholder = "Item name"
-                        placeholderTextColor = "#010101"
-                        autoCapitalize = "none"
-                        onChangeText = {this.handleItem}/>
-                    
-                    <TextInput style={styles.input}
-                        underlineColorAndroid = "transparent"
-                        placeholder = "Price"
-                        placeholderTextColor = "#010101"
-                        autoCapitalize = "none"
-                        onChangeText = {this.handlePrice}/>
+    return (
+        <ScrollView>
+            <View style = {styles.container}>
+                <BackButton onPress={() => this.navigation.navigate('viewRestaurant_screen')} title = "back"/>
+                <Text style={styles.row}>Edit Menu Item</Text>
+                <TextInput style={styles.input}
+                    underlineColorAndroid = "transparent"
+                    placeholder = "Item name"
+                    placeholderTextColor = "#010101"
+                    autoCapitalize = "none"
+                    onChangeText = {this.handleItem}/>
+                
+                <TextInput style={styles.input}
+                    underlineColorAndroid = "transparent"
+                    placeholder = "Price"
+                    placeholderTextColor = "#010101"
+                    autoCapitalize = "none"
+                    onChangeText = {this.handlePrice}/>
 
-                    <TextInput style={styles.input}
-                        underlineColorAndroid = "transparent"
-                        placeholder = "Description"
-                        placeholderTextColor = "#010101"
-                        autoCapitalize = "none"
-                        onChangeText = {this.handleDescription}/>
-                </View>
-                <View style={styles.buttonStyle}>
-                    <TouchableOpacity
-                        style = {styles.editButton}
-                        onPress = {
-                            () => this.editItem(this.state.menu_item)
-                        }>
-                            <Text style = {styles.buttonText}> Edit </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style = {styles.saveButton}
-                        onPress = {
-                            () => this.editItem(this.state.menu_item)
-                        }>
-                            <Text style = {styles.buttonText}> Save </Text>
-                    </TouchableOpacity>
-                </View>
-            </ScrollView>
-        )
-    }
+                <TextInput style={styles.input}
+                    underlineColorAndroid = "transparent"
+                    placeholder = "Description"
+                    placeholderTextColor = "#010101"
+                    autoCapitalize = "none"
+                    onChangeText = {this.handleDescription}/>
+            </View>
+            <View style={styles.buttonStyle}>
+                <TouchableOpacity
+                    style = {styles.editButton}
+                    onPress = {
+                        () => this.editItem(this.state.menu_item)
+                    }>
+                        <Text style = {styles.buttonText}> Edit </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style = {styles.saveButton}
+                    onPress = {
+                        () => this.editItem(this.state.menu_item)
+                    }>
+                        <Text style = {styles.buttonText}> Save </Text>
+                </TouchableOpacity>
+            </View>
+        </ScrollView>
+    )
 }
 
 
@@ -130,5 +137,18 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
         justifyContent: "space-around",
+    },
+    buttonContainer: {
+        backgroundColor: '#C4DAC2',
+        borderRadius: 20,
+        paddingVertical: 12,
+        paddingHorizontal: 12, 
+        marginLeft: -15,
+        marginRight: 256,
+        marginTop: 40,
+    },
+    buttonText: {
+        fontSize: 15,
+        color: '2E7DB7',
     },
 });

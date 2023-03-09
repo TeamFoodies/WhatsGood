@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const URL = 'http://172.104.196.152.4000/';
+
 const NavigationButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.Button_container}>
         <Text style={styles.Button_Text}>{title}</Text>

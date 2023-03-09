@@ -13,6 +13,8 @@ import {
 const { width, height } = Dimensions.get('window');
 const logo = require('../../assets/noodle.png');
 
+const URL = 'http://172.104.196.152.4000/';
+
 export default function App({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

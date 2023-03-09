@@ -15,6 +15,7 @@ import viewRestaurant_screen from './src/pages/viewRestaurant_screen';
 import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen'
 import editMenuPage from './src/pages/editMenuPage';
 import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen';
+import editRestaurant_screen from './src/pages/editRestaurant_screen';
 
 
 const Stack = createNativeStackNavigator();
@@ -34,6 +35,7 @@ export default function App() {
             <Stack.Screen name="viewSavedRestaurant_screen" component={viewSavedRestaurant_screen} options={{headerShown: false}} />
             <Stack.Screen name='viewReview_screen' component={viewReview_screen} options={{headerShown: false}}/>
             <Stack.Screen name="editMenuPage" component={editMenuPage} options={{headerShown: false}} />
+            <Stack.Screen name="editRestaurant_screen" component={editRestaurant_screen} options={{headerShown: false}} />
           </Stack.Navigator>
         </NavigationContainer>
   );

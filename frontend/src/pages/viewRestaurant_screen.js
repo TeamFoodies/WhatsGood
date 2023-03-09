@@ -25,6 +25,7 @@ render(){
         <View style={styles.Rectangle_layout}>
             <View style={styles.buttonRectangle}>
                 <NavigationButton title="Home" onPress={() => this.props.navigation.navigate('home_screen')}/>
+                <NavigationButton title="Edit Restaurant" onPress={() => this.props.navigation.navigate('editRestaurant_screen')}/>
                 <NavigationButton title="Add Review" onPress={() => this.props.navigation.navigate('addReview_screen')} />
                 <NavigationButton title="View Reviews" onPress={() => {}} />
                 <NavigationButton title="Edit Menu" onPress={() => {}} />

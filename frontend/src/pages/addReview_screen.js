@@ -4,6 +4,8 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Box = ({ children }) => (
     <View style={styles.box}>
@@ -21,6 +23,7 @@ const AddButton = ({ onPress, title }) => (
     </TouchableOpacity>
 )
 
+
 export default class App extends Component{
     constructor(){
         super();
@@ -31,7 +34,7 @@ export default class App extends Component{
     
     GetCharCount = (body) =>{
         var bodyLength = body.length.toString();
-        this.setState({charCount : bodyLength}) ;
+        this.setState({charCount : bodyLength});
     }
 
     render(){
@@ -71,7 +74,7 @@ export default class App extends Component{
 
         </ScrollView>
 
-        <AddButton>
+        <AddButton onPress={() => this.props.navigation.navigate('viewRestaurant_screen')}>
         </AddButton>
  
      </View>

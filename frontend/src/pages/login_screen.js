@@ -5,9 +5,22 @@ import Constants from "expo-constants";
 
 const logo = require('../../assets/noodle.png');
 
-export default function App() {
-  const [email, setEmail] = useState("");
+export default function App({ navigation }) {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleForgotPassword = () => {
+    navigation.navigate("ForgotPasswordScreen");
+  };
+
+  const handleLogin = () => {
+    navigation.navigate("HomeScreen");
+  };
+
+  const handleCreateAccount = () => {
+    navigation.navigate("CreateAccountScreen");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <Image style={styles.image} source={logo} />
@@ -15,27 +28,27 @@ export default function App() {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
+          placeholder="Username"
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View>
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={handleForgotPassword}>
         <Text style={styles.forgot_button}>Forgot Password?</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('home_screen')}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('create_acct_screen')}>
         <Text style={styles.createText}>CREATE ACCNT</Text> 
       </TouchableOpacity> 
     </SafeAreaView> 

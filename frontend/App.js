@@ -12,6 +12,8 @@ import home_screen from './src/pages/home_screen';
 import create_acct_screen from './src/pages/create_acct_screen';
 import viewReview_screen from './src/pages/viewReview_screen';
 import viewRestaurant_screen from './src/pages/viewRestaurant_screen';
+import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen'
+import editMenuPage from './src/pages/editMenuPage';
 import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen';
 
 
@@ -31,6 +33,7 @@ export default function App() {
             <Stack.Screen name="create_acct_screen" component={create_acct_screen} options={{headerShown: false}} />
             <Stack.Screen name="viewSavedRestaurant_screen" component={viewSavedRestaurant_screen} options={{headerShown: false}} />
             <Stack.Screen name='viewReview_screen' component={viewReview_screen} options={{headerShown: false}}/>
+            <Stack.Screen name="editMenuPage" component={editMenuPage} options={{headerShown: false}} />
           </Stack.Navigator>
         </NavigationContainer>
   );

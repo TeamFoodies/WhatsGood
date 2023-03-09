@@ -27,8 +27,8 @@ render(){
                 <NavigationButton title="Home" onPress={() => this.props.navigation.navigate('home_screen')}/>
                 <NavigationButton title="Edit Restaurant" onPress={() => this.props.navigation.navigate('editRestaurant_screen')}/>
                 <NavigationButton title="Add Review" onPress={() => this.props.navigation.navigate('addReview_screen')} />
-                <NavigationButton title="View Reviews" onPress={() => {}} />
-                <NavigationButton title="Edit Menu" onPress={() => {}} />
+                <NavigationButton title="View Reviews" onPress={() => this.props.navigation.navigate('viewReview_screen')} />
+                <NavigationButton title="Edit Menu" onPress={() => this.props.navigation.navigate('editMenuPage')} />
                 <NavigationButton title="View Menu" onPress={() => this.props.navigation.navigate('viewMenu_screen')} />
             </View>
         </View>
@@ -62,7 +62,7 @@ Rectangle_layout:{
 },
 buttonRectangle: {
     width: 325,
-    height: 475,
+    height: 525,
     borderRadius: 60,
     backgroundColor: '#C4DAC2',
 },
@@ -74,7 +74,7 @@ Button_container: {
     paddingHorizontal: 12,
     marginLeft: 20,
     marginRight: 20,
-    marginBottom: 25,
+    marginBottom: 15,
     marginTop: 25,
 },
 Button_Text: {

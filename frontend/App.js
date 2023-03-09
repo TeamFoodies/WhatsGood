@@ -12,9 +12,8 @@ import home_screen from './src/pages/home_screen';
 import create_acct_screen from './src/pages/create_acct_screen';
 import viewReview_screen from './src/pages/viewReview_screen';
 import viewRestaurant_screen from './src/pages/viewRestaurant_screen';
-import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen'
-import editMenuPage from './src/pages/editMenuPage';
 import viewSavedRestaurant_screen from './src/pages/viewSavedRestaurant_screen';
+import editMenuPage from './src/pages/editMenuPage';
 import editRestaurant_screen from './src/pages/editRestaurant_screen';
 
 
@@ -24,7 +23,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-          <Stack.Navigator initialRouteName="login_screen">
+          <Stack.Navigator initialRouteName="viewRestaurant_screen">
             <Stack.Screen name="home_screen" component={home_screen} options={{headerShown: false}} />
             <Stack.Screen name="viewRestaurant_screen" component={viewRestaurant_screen} options={{headerShown: false}} />
             <Stack.Screen name="login_screen" component={login_screen} options={{headerShown: false}} />

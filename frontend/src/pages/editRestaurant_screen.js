@@ -31,12 +31,12 @@ export default function App() {
        </Box>
 
        <View style={styles.center_container}>
-            <Text style={styles.subtitle_Text}> Edit This Restuarant</Text>
+            <Text style={styles.subtitle_Text}> Edit Restuarant</Text>
        </View>
 
        <View style={styles.entries_layout}>
             <Text style={styles.entries_titles}>     Name: </Text>
-            <TextInput style={styles.entryInput} placeholder="Restaurant Name..." />
+            <TextInput style={styles.entryInput} placeholder="New Restaurant Name..." />
        </View>
 
        <View style={styles.entries_layout}>

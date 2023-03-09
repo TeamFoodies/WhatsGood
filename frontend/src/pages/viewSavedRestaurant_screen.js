@@ -4,6 +4,8 @@ import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 're
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+const URL = 'http://172.104.196.152.4000/';
+
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
       <Text style={styles.BackButton_text}>{title}</Text>

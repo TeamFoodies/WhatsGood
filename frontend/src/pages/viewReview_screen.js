@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 
+const URL = 'http://172.104.196.152.4000/';
+
 
 class ScrollViewReviews extends Component {
   state = {

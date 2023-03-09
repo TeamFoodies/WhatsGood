@@ -5,6 +5,8 @@ import Constants from "expo-constants";
 
 const logo = require('../../assets/noodle.png');
 
+const URL = 'http://172.104.196.152.4000/';
+
 export default function App({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

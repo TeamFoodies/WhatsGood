@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from "react-native";
 import { SafeAreaView } from "react-navigation";
 
+const URL = 'http://172.104.196.152.4000/';
 
 const MenuButton = ({ text }) => {
     return (

@@ -35,6 +35,7 @@ export default function App({ navigation }) {
     if(!validatePassword(password))
     {
       setErrorMsg('Not valid password.');
+      return;
     }
 
     if (password !== confirmPassword) {

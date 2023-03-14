@@ -1,11 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native'
 
 const URL = 'http://172.104.196.152.4000/';
 
+const BackButton = ({ onPress, title }) => (
+  <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
+    <Text style={styles.buttonText}>{title}</Text>
+  </TouchableOpacity>
+)
 
-class ScrollViewReviews extends Component {
+export default function App() {
+  const navigation = useNavigation();
+  
   state = {
     reviews: [
       {
@@ -60,23 +68,22 @@ class ScrollViewReviews extends Component {
       },
     ]
   }
-  render() {
-    const itemList = this.state.reviews.map(review => <Text style={styles.item}>{review.name}   {review.review}</Text>)
+  const itemList = this.state.reviews.map(review => <Text style={styles.item}>{review.name}   {review.review}</Text>)
 
-    return (
+  return (
+    <View style={styles.container}>
+      <BackButton onPress={() => this.navigation.navigate('viewRestaurant_screen')} title = "back"/>
+      <Text style={styles.row}>Reviews</Text>
+      <StatusBar style="auto"/>
       <View style={styles.container}>
-        <Text style={styles.row}>What's Good?</Text>
-        <StatusBar style="auto"/>
-        <View style={styles.container}>
-          <ScrollView>
-            {itemList}
-          </ScrollView>
-        </View>
+        <ScrollView>
+          {itemList}
+        </ScrollView>
       </View>
-    )
-  }
+    </View>
+  )
 }
-export default ScrollViewReviews
+
 
 const styles = StyleSheet.create({
   item: {
@@ -115,9 +122,22 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   row: {
-    padding: 15,
-    fontSize: 20,
+    padding: 10,
+    fontSize: 30,
     textAlign: 'center',
+    color: '2E7DB7',
+  },
+  buttonContainer: {
+    backgroundColor: '#C4DAC2',
+    borderRadius: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 12, 
+    marginLeft: -15,
+    marginRight: 256,
+    marginTop: 40,
+  },
+  buttonText: {
+    fontSize: 15,
     color: '2E7DB7',
   },
 });

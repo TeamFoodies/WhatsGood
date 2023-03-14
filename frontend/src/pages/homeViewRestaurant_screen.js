@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const URL = 'http://172.104.196.152:4000/';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
@@ -10,8 +12,45 @@ const BackButton = ({ onPress, title }) => (
     </TouchableOpacity>
 )
 
+const DeleteBtn = ({ onPress }) => (
+    <TouchableOpacity onPress={onPress} style={styles.DeleteBtn_container}>
+        <Text style={styles.DeleteBtn_text}>Delete</Text>
+    </TouchableOpacity>
+)
+
+
+
 export default function App() {
     const navigation = useNavigation();
+
+    const [list, setList] = useState([]);
+    const [errorMsg, setErrorMsg] = useState(null);
+
+ 
+
+    const route = URL + 'restaurant/list';
+
+    fetch(route, {
+        method: 'GET',
+    })
+        .then(response => response.json())
+        .then(response => {
+        switch (response.response) {
+            case 200:
+            setList(response.restaurants);
+            break;
+            case 500:
+            setErrorMsg(response.error);
+            break;
+            default:
+            setErrorMsg('Unknown error occurred.');
+            break;
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        setErrorMsg('Could not connect to backend server.');
+    })
 
     return (
         <View style={styles.container}>
@@ -21,11 +60,15 @@ export default function App() {
           <StatusBar style="auto" />
     
           <View style={styles.menuContainer}>
-            <ScrollView>
-              
-            </ScrollView>
+            <FlatList 
+                data={list}
+                renderItem={({ item }) => 
+                    <View style={styles.menuContainer}>
+                        <Text style={styles.item}>Name: {item.name} </Text>
+                    </View>}
+                keyExtractor={item => item.id}
+            />
           </View>
-    
         </View>
     );
 }
@@ -38,7 +81,8 @@ const styles = StyleSheet.create({
     },
     menuContainer: {
       flex: 1,
-      padding: 1, 
+      padding: 1,
+      borderRadius: 5, 
       backgroundColor: '#A0ADB2',
     },
     row: {
@@ -51,7 +95,15 @@ const styles = StyleSheet.create({
       fontSize: 20,
       padding: 10,
       marginTop: 1,
+      borderRadius: 5,
+      overflow: 'hidden',
       backgroundColor: '#D4E5F1',
+    },
+    DeleteBtn_container: {
+
+    },
+    DeleteBtn_text: {
+
     },
     BackButton_container: {
         backgroundColor: "#A6C6DC",

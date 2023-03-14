@@ -61,7 +61,8 @@ export default function App() {
                 data={list}
                 renderItem={({ item }) => 
                     <View style={styles.menuContainer}>
-                        <Text style={styles.item}>Name: {item.name} </Text>
+                        <Text style={styles.item}>Name: {item.name} {'\n'}
+                            Address: {item.address} </Text>
                     </View>}
                 keyExtractor={item => item.id}
             />

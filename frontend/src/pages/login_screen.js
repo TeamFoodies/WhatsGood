@@ -5,20 +5,65 @@ import Constants from "expo-constants";
 
 const logo = require('../../assets/noodle.png');
 
-const URL = 'http://172.104.196.152.4000/';
+const URL = 'http://172.104.196.152:4000/';
 
 export default function App({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const handleLogin = () => {
-    navigation.navigate("HomeScreen");
+    if (username.length === 0) {
+      setErrorMsg("Please enter a username.");
+      return;
+    }
+
+    if (password.length === 0) {
+      setErrorMsg("Please enter a password.");
+      return;
+    }
+
+    const route = URL + 'login';
+    fetch(route, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username: username, password: password})
+    })
+      .then(response => response.json())
+      .then(response => {
+        switch (response.response) {
+          case 200:
+            global.key = response.key;
+            navigation.navigate('home_screen');
+            break;
+          case 400:
+          case 401:
+          case 500:
+            setErrorMsg(response.error);
+            break;
+          default:
+            setErrorMsg('Unknown error occurred.');
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setErrorMsg('Could not connect to backend server.');
+      })
   };
 
-  const handleCreateAccount = () => {
-    navigation.navigate("CreateAccountScreen");
-  };
+  const renderErrorMsg = () => {
+    if (errorMsg != null) {
+      return (
+        <View>
+          <Text>{errorMsg}</Text>
+        </View>
+      )
+    }
+    return <View></View>
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,6 +75,7 @@ export default function App({ navigation }) {
           placeholder="Username"
           placeholderTextColor="#003f5c"
           onChangeText={(username) => setUsername(username)}
+          autoCapitalize='none'
         />
       </View>
       <View style={styles.inputView}>
@@ -41,12 +87,13 @@ export default function App({ navigation }) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('home_screen')}>
+      <TouchableOpacity style={styles.btn} onPress={() => handleLogin()}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
       <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('create_acct_screen')}>
-        <Text style={styles.createText}>CREATE ACCNT</Text> 
-      </TouchableOpacity> 
+        <Text style={styles.createText}>CREATE ACCOUNT</Text>
+      </TouchableOpacity>
+      {renderErrorMsg()}
     </SafeAreaView> 
   );
 }

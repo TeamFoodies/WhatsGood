@@ -55,7 +55,7 @@ function userByKey(auth_key) {
 }
 
 async function getUserPublicFacing(username) {
-  return await mongo().db('whatsgood').collection('users').find({ username: username }).project({ username: 1, saved_restaurants: 1, _id: 0 }).toArray();
+  return await mongo().db('whatsgood').collection('users').find({ username: username }).project({ username: 1, favorites: 1, _id: 0 }).toArray();
 }
 
 // Returns true if the authorization key was valid

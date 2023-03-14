@@ -4,6 +4,13 @@ const { mongo } = require('./database.controller');
 const login_controller = require('./login.controller');
 const user_controller = require('./user.controller');
 
+const restaurant_list_projection = {
+  id: 1,
+  name: 1,
+  address: 1,
+  _id: 0
+}
+
 async function getRestaurant(id) {
   let document = await mongo().db('whatsgood').collection('restaurants').findOne({id: id});
   document.favorites = await getFavorites(id);
@@ -95,7 +102,7 @@ async function addReview(restaurant_id, rating, title, content, auth_key) {
 }
 
 async function getCondensedRestaurantList() {
-  return await mongo().db('whatsgood').collection('restaurants').find({ }).project({ id: 1, name: 1, _id: 0 }).toArray();
+  return await mongo().db('whatsgood').collection('restaurants').find({ }).project(restaurant_list_projection).toArray();
 }
 
 exports.getRestaurant = getRestaurant;

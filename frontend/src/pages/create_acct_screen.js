@@ -25,7 +25,7 @@ export default function App({ navigation }) {
   const btnWidth = width * 0.8;
   const btnHeight = height * 0.07;
 
-  async function handleCreateAccount() {// Send a POST request to the backend
+  function handleCreateAccount() {// Send a POST request to the backend
     // Check the password fields to ensure they are the same
     if (password !== confirmPassword) {
       setErrorMsg('Your passwords do not match.');
@@ -33,7 +33,7 @@ export default function App({ navigation }) {
     }
 
     const route = URL + 'create_account';
-    await fetch(route, {
+    fetch(route, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

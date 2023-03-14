@@ -54,6 +54,10 @@ function userByKey(auth_key) {
   return authorizedKeys[auth_key];
 }
 
+async function getUserPublicFacing(username) {
+  return await mongo().db('whatsgood').collection('users').find({ username: username }).project({ username: 1, saved_restaurants: 1, _id: 0 }).toArray();
+}
+
 // Returns true if the authorization key was valid
 // False if the key was expired or invalid
 function logout(auth_key) {
@@ -67,4 +71,5 @@ exports.login = login;
 exports.isUsernameTaken = isUsernameTaken;
 exports.createAccount = createAccount;
 exports.userByKey = userByKey;
+exports.getUserPublicFacing = getUserPublicFacing;
 exports.logout = logout;

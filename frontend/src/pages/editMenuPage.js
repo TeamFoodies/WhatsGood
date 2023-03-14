@@ -4,19 +4,12 @@ import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button
 import { SafeAreaView } from "react-navigation";
 import { useNavigation } from '@react-navigation/native'
 
-const MenuButton = ({ text }) => {
-    return (
-        <TouchableOpacity style={styles.editButton}>
-            <Text style={styles.text}>{text}</Text>
-        </TouchableOpacity>
-    )
-};
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
-  )
+)
 
 
 export default function App() {
@@ -41,27 +34,27 @@ export default function App() {
     }
 
     return (
-        <ScrollView>
-            <View style = {styles.container}>
+        <SafeAreaView style={styles.container}>
+            <View>
                 <BackButton onPress={() => this.navigation.navigate('viewRestaurant_screen')} title = "back"/>
                 <Text style={styles.row}>Edit Menu Item</Text>
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = "Item name"
+                    placeholder = " Item name"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handleItem}/>
                 
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = "Price"
+                    placeholder = " Price"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handlePrice}/>
 
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = "Description"
+                    placeholder = " Description"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handleDescription}/>
@@ -81,7 +74,7 @@ export default function App() {
                         <Text style = {styles.buttonText}> SAVE </Text>
                 </TouchableOpacity>
             </View>
-        </ScrollView>
+        </SafeAreaView>
     )
 }
 
@@ -91,7 +84,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 23,
         justifyContent: 'center',
-        backgroundColor: '79878D',
+        backgroundColor: '#959889',
     },
     row: {
         padding: 15, 
@@ -109,21 +102,21 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: "#C4DAC2",
         borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 50,
         marginLeft: 20,
         marginRight: 20,
-        marginBottom: 40,
+        marginBottom: 305,
     },
     saveButton: {
         elevation: 8,
         backgroundColor: "#D6292C",
         borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: 15,
+        paddingHorizontal: 50,
         marginLeft: 20,
         marginRight: 20,
-        marginBottom: 40,
+        marginBottom: 305,
     },
     buttonText: {
         fontSize: 24,
@@ -142,15 +135,15 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         paddingVertical: 12,
         paddingHorizontal: 12, 
-        marginLeft: -15,
-        marginRight: 256,
+        marginLeft: 5,
+        marginRight: 280,
         marginTop: 40,
-        flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center',
     },
     buttonText: {
         fontSize: 15,
         color: '2E7DB7',
+        justifyContent: 'center',
     },
 });

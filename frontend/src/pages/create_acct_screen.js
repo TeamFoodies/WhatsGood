@@ -13,19 +13,65 @@ import {
 const { width, height } = Dimensions.get('window');
 const logo = require('../../assets/noodle.png');
 
-const URL = 'http://172.104.196.152.4000/';
+const URL = 'http://172.104.196.152:4000/';
 
 export default function App({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState(null);
   const inputWidth = width * 0.7;
   const inputHeight = height * 0.05;
   const btnWidth = width * 0.8;
   const btnHeight = height * 0.07;
 
-  const handleCreateAccount = () => {
-    navigation.navigate('home_screen'); // replace 'NewPage' with the actual name of your new page
-  };
+  function handleCreateAccount() {// Send a POST request to the backend
+    // Check the password fields to ensure they are the same
+    if (password !== confirmPassword) {
+      setErrorMsg('Your passwords do not match.');
+      return;
+    }
+
+    const route = URL + 'create_account';
+    fetch(route, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({username: username, password: password})
+    })
+      .then(response => response.json())
+      .then(response => {
+        switch (response.response) {
+          case 200:
+            global.key = response.key;
+            navigation.navigate('home_screen');
+            break;
+          case 400:
+          case 500:
+            setErrorMsg(response.error);
+            break;
+          default:
+            setErrorMsg('Unknown error occurred.');
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setErrorMsg('Could not connect to backend server.');
+      })
+  }
+
+  const renderErrorMsg = () => {
+    if (errorMsg !== null) {
+      return (
+        <View>
+          <Text>{errorMsg}</Text>
+        </View>
+      );
+    }
+    return <View></View>;
+  }
 
   return (
     <View style={styles.container}>
@@ -34,15 +80,16 @@ export default function App({ navigation }) {
       <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Username."
+          placeholder="Username"
           placeholderTextColor="#003f5c"
           onChangeText={(username) => setUsername(username)}
+          autoCapitalize='none'
         /> 
       </View> 
       <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Password."
+          placeholder="Password"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
@@ -51,15 +98,16 @@ export default function App({ navigation }) {
       <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Confirm Password."
+          placeholder="Confirm Password"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+          onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
         /> 
       </View>
       <TouchableOpacity style={[styles.btn, { width: btnWidth, height: btnHeight }]} onPress={handleCreateAccount}>
         <Text style={styles.create_acct_text}>CREATE</Text> 
-      </TouchableOpacity> 
+      </TouchableOpacity>
+      {renderErrorMsg()}
     </View> 
   );
 }

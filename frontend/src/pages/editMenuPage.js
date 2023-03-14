@@ -4,6 +4,7 @@ import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button
 import { SafeAreaView } from "react-navigation";
 import { useNavigation } from '@react-navigation/native'
 
+const URL = 'http://172.104.196.152.4000/';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>

@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
+const URL = 'http://172.104.196.152.4000/';
+
 const BackButton = ({ onPress, title }) => (
   <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
     <Text style={styles.buttonText}>{title}</Text>
@@ -11,7 +13,7 @@ const BackButton = ({ onPress, title }) => (
 
 export default function App() {
   const navigation = useNavigation();
-
+  
   state = {
     reviews: [
       {

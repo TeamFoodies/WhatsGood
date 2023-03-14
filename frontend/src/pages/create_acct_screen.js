@@ -13,8 +13,10 @@ import {
 const { width, height } = Dimensions.get('window');
 const logo = require('../../assets/noodle.png');
 
+const URL = 'http://172.104.196.152.4000/';
+
 export default function App({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const inputWidth = width * 0.7;
   const inputHeight = height * 0.05;
@@ -32,9 +34,9 @@ export default function App({ navigation }) {
       <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email."
+          placeholder="Username."
           placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
         /> 
       </View> 
       <View style={[styles.inputView, { width: inputWidth, height: inputHeight }]}>

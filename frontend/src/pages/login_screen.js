@@ -5,13 +5,12 @@ import Constants from "expo-constants";
 
 const logo = require('../../assets/noodle.png');
 
+const URL = 'http://172.104.196.152.4000/';
+
 export default function App({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleForgotPassword = () => {
-    navigation.navigate("ForgotPasswordScreen");
-  };
 
   const handleLogin = () => {
     navigation.navigate("HomeScreen");
@@ -42,9 +41,6 @@ export default function App({ navigation }) {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
-      <TouchableOpacity onPress={handleForgotPassword}>
-        <Text style={styles.forgot_button}>Forgot Password?</Text> 
-      </TouchableOpacity> 
       <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('home_screen')}>
         <Text style={styles.loginText}>LOGIN</Text> 
       </TouchableOpacity> 
@@ -82,10 +78,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
-  },
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
   },
   btn: {
     width: "80%",

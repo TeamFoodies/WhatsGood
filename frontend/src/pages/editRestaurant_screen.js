@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const URL = 'http://172.104.196.152:4000/';
-
 const Box = ({ children }) => (
     <View style={styles.box}>
         {children}
@@ -18,9 +16,9 @@ Box.propTypes = {
     children: PropTypes.node.isRequired,
 }
 
-const AddButton = ({ onPress, title }) => (
-    <TouchableOpacity onPress={onPress} style={styles.addButton_container}>
-      <Text style={styles.addButton_Text}>{title}Add</Text>
+const SubmitButton = ({ onPress, title }) => (
+    <TouchableOpacity onPress={onPress} style={styles.submitButton_container}>
+      <Text style={styles.submitButton_Text}>{title}Submit</Text>
     </TouchableOpacity>
 )
 
@@ -33,12 +31,12 @@ export default function App() {
        </Box>
 
        <View style={styles.center_container}>
-            <Text style={styles.subtitle_Text}> Add A Restuarant</Text>
+            <Text style={styles.subtitle_Text}> Edit Restuarant</Text>
        </View>
 
        <View style={styles.entries_layout}>
             <Text style={styles.entries_titles}>     Name: </Text>
-            <TextInput style={styles.entryInput} placeholder="Restaurant Name..." />
+            <TextInput style={styles.entryInput} placeholder="New Restaurant Name..." />
        </View>
 
        <View style={styles.entries_layout}>
@@ -50,8 +48,8 @@ export default function App() {
             <Text style={styles.subtitle_Text}> INSERT MAP </Text>
        </View>
 
-       <AddButton onPress={() => navigation.navigate('viewRestaurant_screen')}>
-       </AddButton>
+       <SubmitButton onPress={() => navigation.navigate('viewRestaurant_screen')}>
+       </SubmitButton>
 
     </View>
   );
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 15,
   },
-  addButton_container: {
+  submitButton_container: {
     elevation: 8,
     backgroundColor: "#C4DAC2",
     borderRadius: 20,
@@ -111,7 +109,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginRight: 20,
   },
-  addButton_Text: {
+  submitButton_Text: {
     fontSize: 24,
     color: "#fff",
     fontWeight: "bold",

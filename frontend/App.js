@@ -1,10 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Dimensions} from 'react-native';
+
+// Backend address
+global.url = 'http://172.104.196.152:4000/';
 
 //screens
-import  login_screen  from './src/pages/login_screen';
+import login_screen  from './src/pages/login_screen';
 import addRestaurant_screen from './src/pages/addRestaurant_screen';
 import addReview_screen from './src/pages/addReview_screen';
 import viewMenu_screen from './src/pages/viewMenu_screen';

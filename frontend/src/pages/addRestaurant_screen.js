@@ -33,7 +33,7 @@ export default function App() {
        </Box>
 
        <View style={styles.center_container}>
-            <Text style={styles.subtitle_Text}> Add A Restuarant</Text>
+            <Text style={styles.subtitle_Text}> Add A Restaurant</Text>
        </View>
 
        <View style={styles.entries_layout}>

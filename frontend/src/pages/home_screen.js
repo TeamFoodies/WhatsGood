@@ -14,6 +14,28 @@ const CustomButton = ({ title, onPress}) => {
 
 export default function App() {
   const navigation = useNavigation();
+
+  const handleLogout = () => {
+    const route = global.url + 'logout';
+    fetch(route, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({auth_key: global.key})
+    })
+      .then(_ => {
+        // No matter the response, just assume the user logged out
+        global.key = undefined;
+        navigation.navigate('login_screen');
+      })
+      .catch(_ => {
+        // Same if an error occurs
+        global.key = undefined;
+        navigation.navigate('login_screen');
+      })
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -22,7 +44,7 @@ export default function App() {
           <CustomButton title="View restaurants" onPress={() => navigation.navigate('homeViewRestaurant_screen')} />
           <CustomButton title="View saved restaurants" onPress={() => navigation.navigate('viewSavedRestaurant_screen')} />
           <CustomButton title="Log restaurant" onPress={() => navigation.navigate('addRestaurant_screen')} />
-          <CustomButton title="Log out" onPress={() =>navigation.navigate('login_screen')} />
+          <CustomButton title="Log out" onPress={() => handleLogout()} />
         </View>
       </View>
     </View>

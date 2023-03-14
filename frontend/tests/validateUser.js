@@ -1,3 +1,4 @@
+//a valid username: alphabet, numerics, underscore, no special chars, 3-20 chars
 function validateUser(username){
     //checks valid length
     const minLength = 3

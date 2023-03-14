@@ -72,14 +72,13 @@ export default function App() {
                     onPress = {
                         () => this.editItem(this.state.menu_item)
                     }>
-                        <Text style = {styles.buttonText}> Edit </Text>
+                        <Text style = {styles.buttonText}> EDIT </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style = {styles.saveButton}
                     onPress = {
-                        () => this.editItem(this.state.menu_item)
-                    }>
-                        <Text style = {styles.buttonText}> Save </Text>
+                        () => this.editItem(this.state.menu_item)}>
+                        <Text style = {styles.buttonText}> SAVE </Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
         padding: 15, 
         fontSize: 35,
         textAlign: 'center',
-        color: '#2E7DB7',
+        color: '2E7DB7',
     },
     input: {
         margin: 15,
@@ -110,8 +109,8 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: "#C4DAC2",
         borderRadius: 20,
-        paddingVertical: 8,
-        paddingHorizontal: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 40,
@@ -120,8 +119,8 @@ const styles = StyleSheet.create({
         elevation: 8,
         backgroundColor: "#D6292C",
         borderRadius: 20,
-        paddingVertical: 8,
-        paddingHorizontal: 12,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         marginLeft: 20,
         marginRight: 20,
         marginBottom: 40,
@@ -146,6 +145,9 @@ const styles = StyleSheet.create({
         marginLeft: -15,
         marginRight: 256,
         marginTop: 40,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
     },
     buttonText: {
         fontSize: 15,

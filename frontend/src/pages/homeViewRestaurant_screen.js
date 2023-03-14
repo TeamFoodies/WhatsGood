@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-const URL = 'http://172.104.196.152:4000/';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
@@ -26,31 +24,30 @@ export default function App() {
     const [list, setList] = useState([]);
     const [errorMsg, setErrorMsg] = useState(null);
 
- 
-
-    const route = URL + 'restaurant/list';
-
-    fetch(route, {
+    useEffect(() => {
+      const route = global.url + 'restaurant/list';
+      fetch(route, {
         method: 'GET',
-    })
+      })
         .then(response => response.json())
         .then(response => {
-        switch (response.response) {
+          switch (response.response) {
             case 200:
-            setList(response.restaurants);
-            break;
+              setList(response.restaurants);
+              break;
             case 500:
-            setErrorMsg(response.error);
-            break;
+              setErrorMsg(response.error);
+              break;
             default:
-            setErrorMsg('Unknown error occurred.');
-            break;
-        }
-    })
-    .catch(error => {
-        console.log(error);
-        setErrorMsg('Could not connect to backend server.');
-    })
+              setErrorMsg('Unknown error occurred.');
+              break;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          setErrorMsg('Could not connect to backend server.');
+        })
+    }, []);
 
     return (
         <View style={styles.container}>

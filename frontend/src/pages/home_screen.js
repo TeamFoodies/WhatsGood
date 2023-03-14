@@ -19,6 +19,7 @@ export default function App() {
       <View style={styles.box}>
         <Text style={styles.boxText}>HOME</Text>
         <View style={styles.buttonContainer}>
+          <CustomButton title="View restaurants" onPress={() => navigation.navigate('homeViewRestaurant_screen')} />
           <CustomButton title="View saved restaurants" onPress={() => navigation.navigate('viewSavedRestaurant_screen')} />
           <CustomButton title="Log restaurant" onPress={() => navigation.navigate('addRestaurant_screen')} />
           <CustomButton title="Log out" onPress={() =>navigation.navigate('login_screen')} />

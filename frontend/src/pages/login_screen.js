@@ -34,6 +34,7 @@ export default function App({ navigation }) {
         switch (response.response) {
           case 200:
             global.key = response.key;
+            global.username = username;
             navigation.navigate('home_screen');
             break;
           case 400:

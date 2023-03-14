@@ -15,3 +15,6 @@ test("returns false for invalid length", () => {
 test("returns true for being valid overall", () => {
     expect(validatePassword("AlphaBetaGamma244")).toBe(true)
 })
+test("returns false for having special characters", () => {
+    expect(validatePassword("hello?!@")).toBe(false)
+})

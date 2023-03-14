@@ -1,7 +1,8 @@
+//alpha numeric underscore 
 function validatePassword(password){
     //checks valid length
-    const minLength = 1
-    const maxLength = 30
+    const minLength = 3
+    const maxLength = 20
     let validLength = false
     if(password.length >= minLength && password.length <= maxLength){
         validLength = true
@@ -32,7 +33,16 @@ function validatePassword(password){
         }
     }
 
-    const validPassword = validLength && hasLowerLetter && hasUpperLetter && hasNumber
+    //checks for special characters that aren't underscore
+    let hasInvalidSpecialChar = false
+    const specialChar = "!@#$%^&*()<>?.,/"
+    for(const char of specialChar){
+        if(password.includes(char)){
+            hasInvalidSpecialChar = true
+        }
+    }
+
+    const validPassword = validLength && hasLowerLetter && hasUpperLetter && hasNumber && !hasInvalidSpecialChar
     return validPassword
 }
 module.exports = validatePassword

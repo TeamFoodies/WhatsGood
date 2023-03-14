@@ -1,14 +1,24 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, FlatList } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const URL = 'http://172.104.196.152.4000/';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
       <Text style={styles.BackButton_text}>{title}</Text>
     </TouchableOpacity>
 )
+
+const DeleteBtn = ({ onPress }) => (
+    <TouchableOpacity onPress={onPress} style={styles.DeleteBtn_container}>
+        <Text style={styles.DeleteBtn_text}>Delete</Text>
+    </TouchableOpacity>
+)
+
+const route = URL + "list";
 
 export default function App() {
     const navigation = useNavigation();
@@ -21,9 +31,11 @@ export default function App() {
           <StatusBar style="auto" />
     
           <View style={styles.menuContainer}>
-            <ScrollView>
-              
-            </ScrollView>
+            <FlatList 
+                horizontal={true}
+                
+            
+            />
           </View>
     
         </View>
@@ -52,6 +64,12 @@ const styles = StyleSheet.create({
       padding: 10,
       marginTop: 1,
       backgroundColor: '#D4E5F1',
+    },
+    DeleteBtn_container: {
+
+    },
+    DeleteBtn_text: {
+
     },
     BackButton_container: {
         backgroundColor: "#A6C6DC",

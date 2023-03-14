@@ -2,9 +2,12 @@ const crypto = require('crypto');
 
 const { mongo } = require('./database.controller');
 const login_controller = require('./login.controller');
+const user_controller = require('./user.controller');
 
 async function getRestaurant(id) {
-  return await mongo().db('whatsgood').collection('restaurants').findOne({id: id});
+  let document = await mongo().db('whatsgood').collection('restaurants').findOne({id: id});
+  document.favorites = await getFavorites(id);
+  return document;
 }
 
 async function addRestaurant(name, address, latitude, longitude, auth_key) {
@@ -32,9 +35,28 @@ async function addRestaurant(name, address, latitude, longitude, auth_key) {
   }
 
   await mongo().db('whatsgood').collection('restaurants').insertOne(restaurant);
+
+  // Add the restaurant to the user's favorites
+  await user_controller.addFavorite(auth_key, id);
+
   // Bump the user's authentication key (refresh expiration timeout)
   user.bump();
+
+  // Append favorites onto the restaurant object
+  restaurant.favorites = await getFavorites(id);
   return restaurant;
+}
+
+// Get the number of favorites a restaurant has
+// This method scans all users looking for which users contain the restaurant_id in their favorites list
+async function getFavorites(id) {
+  let count = 0;
+  await mongo().db('whatsgood').collection('users')
+    .find({ favorites: { $exists: true } }) // Only users where they already have favorites
+    .forEach((user) => {
+      if (user.favorites.includes(id)) count++;
+    })
+  return count;
 }
 
 async function addReview(restaurant_id, rating, title, content, auth_key) {

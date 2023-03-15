@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
 //import { useNavigation } from '@react-navigation/native'
 
@@ -32,6 +32,32 @@ const menuItems = [
     },
 ]
 
+const { restaurantId } = route.params;
+const [ data, setData ] = useState(null);
+
+useEffect(() => {
+    const route = global.url + 'restaurant/id/' + restaurantId;
+    fetch(route, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(response => {
+        switch (response.response) {
+          case 200:
+            setData(response.restaurant);
+            break;
+          default:
+            console.log(response);
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+}, []);
 
 class Inputs extends Component {
     
@@ -55,55 +81,56 @@ class Inputs extends Component {
     }
 
     render() {
-    return (
-        <View style={styles.container}>
-            <ScrollView>
-                <BackButton onPress={() => this.props.navigation.navigate('viewRestaurant_screen')} title = "back"/>
-                <Text style={styles.row}>Edit Menu Item</Text>
-                {menuItems.map((item, index) => (
-                <View key={index}>
-                    <TextInput style={styles.input}
-                        underlineColorAndroid = "transparent"
-                        defaultValue = {item.item}
-                        placeholderTextColor = "#010101"
-                        autoCapitalize = "none"
-                        onChangeText = {this.handleItem}/>
-                    
-                    <TextInput style={styles.input}
-                        underlineColorAndroid = "transparent"
-                        defaultValue = {item.price.toString()}
-                        placeholderTextColor = "#010101"
-                        autoCapitalize = "none"
-                        onChangeText = {this.handlePrice}/>
+        if (data == null) return null;
+        return (
+            <View style={styles.container}>
+                <ScrollView>
+                    <BackButton onPress={() => this.props.navigation.navigate('viewRestaurant_screen')} title = "back"/>
+                    <Text style={styles.row}>Edit Menu Item</Text>
+                    {data.menu === undefined ? null : data.menu.map((item) => (
+                    <View key={index}>
+                        <TextInput style={styles.input}
+                            underlineColorAndroid = "transparent"
+                            defaultValue = {item.item}
+                            placeholderTextColor = "#010101"
+                            autoCapitalize = "none"
+                            onChangeText = {this.handleItem}/>
+                        
+                        <TextInput style={styles.input}
+                            underlineColorAndroid = "transparent"
+                            defaultValue = {item.price.toString()}
+                            placeholderTextColor = "#010101"
+                            autoCapitalize = "none"
+                            onChangeText = {this.handlePrice}/>
 
-                    <TextInput style={styles.input}
-                        underlineColorAndroid = "transparent"
-                        defaultValue = {item.description}
-                        placeholderTextColor = "#010101"
-                        autoCapitalize = "none"
-                        onChangeText = {this.handleDescription}/>
+                        <TextInput style={styles.input}
+                            underlineColorAndroid = "transparent"
+                            defaultValue = {item.description}
+                            placeholderTextColor = "#010101"
+                            autoCapitalize = "none"
+                            onChangeText = {this.handleDescription}/>
 
-                    <View style={styles.buttonView}>
-                        <TouchableOpacity
-                            style = {styles.editButton}
-                            onPress = {
-                                () => this.editItem(this.state.menu_item)
-                            }>
-                            <Text style = {styles.buttonText}> EDIT </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style = {styles.saveButton}
-                            onPress = {
-                                () => this.editItem(this.state.menu_item)
-                            }>
-                            <Text style = {styles.buttonText}> SAVE </Text>
-                        </TouchableOpacity>
+                        <View style={styles.buttonView}>
+                            <TouchableOpacity
+                                style = {styles.editButton}
+                                onPress = {
+                                    () => this.editItem(this.state.data)
+                                }>
+                                <Text style = {styles.buttonText}> EDIT </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style = {styles.saveButton}
+                                onPress = {
+                                    () => this.editItem(this.state.data)
+                                }>
+                                <Text style = {styles.buttonText}> SAVE </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-                ))}
-            </ScrollView>
-        </View>
-    )
+                    ))}
+                </ScrollView>
+            </View>
+        )
     }
 } 
 export default Inputs

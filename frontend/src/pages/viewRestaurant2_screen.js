@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useEffect, useState} from "react";
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 
@@ -7,6 +7,7 @@ export default function App({ route, navigation }) {
 
   const [ starRating, setStarRating ] = useState(Math.random() * 5 + 1);
   const [ data, setData ] = useState(null);
+  const [ review, setReview ] = useState([]);
   const [ favorites, setFavorites ] = useState([]);
   const [ favoriteCount, setFavoriteCount ] = useState(0);
 
@@ -46,6 +47,8 @@ export default function App({ route, navigation }) {
           case 200:
             setData(response.restaurant);
             setFavoriteCount(response.restaurant.favorites);
+            setReview(response.restaurant.reviews);
+            console.log(review);
             break;
           default:
             console.log(response);
@@ -126,6 +129,17 @@ export default function App({ route, navigation }) {
     )
   }
 
+  const renderReview = (item) => {
+    if (review.title === undefined) return null;
+    return (
+      <View style={styles.review_container}>
+        <Text style={styles.review_title_text}>{item.title}</Text>
+        {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
+      </View>
+    )
+  }
+
+
   const ICON_SIZE = 28;
 
   // REFERENCE: https://www.atomlab.dev/tutorials/react-native-star-rating
@@ -181,11 +195,28 @@ export default function App({ route, navigation }) {
     )
   }
 
+
+  const renderAddReviewNavigation = () => {
+    return (
+      <View style={styles.review_header_container}>
+        <Text style={styles.review_header_text}>Reviews</Text>
+        <View> 
+          {data.reviews.map((item) => renderReview(item))}
+        </View>
+      </View>
+    )
+  }
+
   return (
+       
+
+    //<ScrollView style={styles.container} bounces={false}>
     <View style={styles.container}>
       {renderHeader()}
       {renderMenuNavigation()}
+      {renderAddReviewNavigation()}
     </View>
+    //</ScrollView>
   );
 }
 
@@ -299,5 +330,28 @@ const styles = StyleSheet.create({
   menu_button_text: {
     color: '#ffffff',
     fontSize: 18
-  }
+  },
+  review_header_container: {
+    marginTop: 20,
+    paddingHorizontal: 30,
+  },
+  review_header_text: {
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+  review_container: {
+    backgroundColor: 'ADBBBB',
+    paddingTop: 10,
+
+  },
+  review_title_text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingBottom: 4,
+  },
+  review_text: {
+    fontSize: 16,
+  },
+
+
 })

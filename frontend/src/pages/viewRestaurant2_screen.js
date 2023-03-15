@@ -5,7 +5,7 @@ import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 export default function App({ route, navigation }) {
   const { restaurantId, backScreen } = route.params;
 
-  const [ starRating, setStarRating ] = useState(Math.random() * 5 + 1);
+  const [ starRating, setStarRating ] = useState(null);
   const [ data, setData ] = useState(null);
   const [ favorites, setFavorites ] = useState([]);
   const [ favoriteCount, setFavoriteCount ] = useState(0);
@@ -46,6 +46,7 @@ export default function App({ route, navigation }) {
           case 200:
             setData(response.restaurant);
             setFavoriteCount(response.restaurant.favorites);
+            setStarRating(averageReviews(response.restaurant));
             break;
           default:
             console.log(response);
@@ -58,6 +59,13 @@ export default function App({ route, navigation }) {
 
       getAndUpdateFavorites();
   }, []);
+
+  const averageReviews = (data) => {
+    if (data === null || data.reviews === null) return null;
+    let total = 0;
+    data.reviews.forEach((item) => total += item.rating);
+    return total / data.reviews.length;
+  }
 
   const doFavorite = (action) => {
     const route = global.url + 'favorite/' + action;
@@ -113,7 +121,7 @@ export default function App({ route, navigation }) {
         <View style={styles.header_text_container}>
           <Text style={styles.header_title}>{data.name}</Text>
           {renderAddress()}
-          {renderStars()}
+          {renderStars(ICON_SIZE, starRating)}
         </View>
       </View>
     );
@@ -142,9 +150,9 @@ export default function App({ route, navigation }) {
     return (
       <View style={styles.review_container}>
         <Text style={styles.review_title_text}>{item.author}:  {item.title}</Text>
+        {renderStars(20, item.rating)}
         {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
-        {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
-        
+        {convertDate(item.creation_timestamp)}
       </View>
     )
   }
@@ -153,33 +161,33 @@ export default function App({ route, navigation }) {
   const ICON_SIZE = 28;
 
   // REFERENCE: https://www.atomlab.dev/tutorials/react-native-star-rating
-  const renderStars = () => {
+  const renderStars = (size, rating) => {
     return (
       <View style={styles.stars}>
         <MaterialIcons
-          name={starRating >= 1 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 1 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 1 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 1 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 2 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 2 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 2 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 2 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 3 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 3 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 3 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 3 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 4 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 4 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 4 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 4 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 5 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 5 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 5 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 5 ? styles.starSelected : styles.starUnselected}
         />
       </View>
     );
@@ -357,6 +365,8 @@ const styles = StyleSheet.create({
   },
   review_text: {
     fontSize: 16,
+    paddingTop: 4,
+    paddingBottom: 4
   },
   review_date_text: {
     fontSize: 16,

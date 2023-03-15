@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-//import { StatusBar } from "expo-status-bar";
-import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { TextInput, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native'
 
-const URL = 'http://172.104.196.152.4000/';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
@@ -13,13 +10,13 @@ const BackButton = ({ onPress, title }) => (
 )
 
 
-export default function App() {
-    const navigation = useNavigation();
-
+class Inputs extends Component {
+    //navigation = useNavigation();
+    
     state = {
-        menu_item: '',
-        price: '',
-        description: '',
+        menu_item: 'Popcorn chicken',
+        price: '8',
+        description: 'Savory deep fried chicken with basil',
     }
     handleItem = (text) => {
         this.setState({ menu_item: text })
@@ -34,28 +31,29 @@ export default function App() {
         alert('Item ' + item + ' updated')
     }
 
+    render() {
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View>
-                <BackButton onPress={() => this.navigation.navigate('viewRestaurant_screen')} title = "back"/>
+                <BackButton onPress={() => this.props.navigation.navigate('viewRestaurant_screen')} title = "back"/>
                 <Text style={styles.row}>Edit Menu Item</Text>
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = " Item name"
+                    placeholder = "Item name"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handleItem}/>
                 
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = " Price"
+                    placeholder = "Price"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handlePrice}/>
 
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = " Description"
+                    placeholder = "Description"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handleDescription}/>
@@ -71,13 +69,16 @@ export default function App() {
                 <TouchableOpacity
                     style = {styles.saveButton}
                     onPress = {
-                        () => this.editItem(this.state.menu_item)}>
+                        () => this.editItem(this.state.menu_item)
+                    }>
                         <Text style = {styles.buttonText}> SAVE </Text>
                 </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </View>
     )
-}
+    }
+} 
+export default Inputs
 
 
 const styles = StyleSheet.create({

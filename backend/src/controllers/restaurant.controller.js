@@ -39,7 +39,7 @@ async function addRestaurant(name, address, latitude, longitude, auth_key) {
       longitude: longitude
     },
     reviews: [],
-    menu: {}
+    menu: []
   }
 
   await mongo().db('whatsgood').collection('restaurants').insertOne(restaurant);

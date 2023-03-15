@@ -141,8 +141,7 @@ export default function App({ route, navigation }) {
   const renderReview = (item) => {
     return (
       <View style={styles.review_container}>
-        <Text></Text>
-        <Text style={styles.review_title_text}>{item.title}</Text>
+        <Text style={styles.review_title_text}>{item.author}:  {item.title}</Text>
         {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
         {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
         
@@ -362,6 +361,5 @@ const styles = StyleSheet.create({
   review_date_text: {
     fontSize: 16,
     color: '#939B9B',
-  }
-
+  },
 })

@@ -83,7 +83,9 @@ export default function App({route, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 50, 
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 20, 
     backgroundColor: '#e7e7e7',
   },
   header_title: {
@@ -93,8 +95,7 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     flex: 1,
-    padding: 1, 
-    borderRadius: 3,
+    padding: 5, 
     backgroundColor: '#D4E5F1',
   },
   row: {

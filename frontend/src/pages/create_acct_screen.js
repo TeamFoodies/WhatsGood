@@ -10,6 +10,9 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+const validatePassword = require('../../tests/validatePassword')
+const validateUser = require('../../tests/validateUser')
+
 const { width, height } = Dimensions.get('window');
 const logo = require('../../assets/noodle.png');
 
@@ -23,12 +26,30 @@ export default function App({ navigation }) {
   const btnWidth = width * 0.8;
   const btnHeight = height * 0.07;
 
+  
+
+  
+
   function handleCreateAccount() {// Send a POST request to the backend
     // Check the password fields to ensure they are the same
+    if(!validateUser(username))
+    {
+      setErrorMsg('Not valid username.');
+      return;
+    }
+
+    if(!validatePassword(password))
+    {
+      setErrorMsg('Not valid password.');
+      return;
+    }
+
     if (password !== confirmPassword) {
       setErrorMsg('Your passwords do not match.');
       return;
     }
+
+
 
     const route = global.url + 'create_account';
     fetch(route, {

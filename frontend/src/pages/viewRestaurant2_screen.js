@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     backgroundColor: '#d4d4d4',
     padding: 20,
-    borderRadius: '50%',
+    borderRadius: 1000,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     backgroundColor: '#d4d4d4',
     padding: 20,
-    borderRadius: '50%',
+    borderRadius: 1000,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -350,7 +350,7 @@ const styles = StyleSheet.create({
   menu_button_view: {
     backgroundColor: '#a1a1a1',
     paddingVertical: 10,
-    borderRadius: '20%',
+    borderRadius: 1000,
     alignItems: 'center',
     marginBottom: 10,
   },
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   add_review_button_view: {
     backgroundColor: '#a1a1a1',
     paddingVertical: 10,
-    borderRadius: '20%',
+    borderRadius: 1000,
     alignItems: 'center'
   },
   add_review_button_text: {

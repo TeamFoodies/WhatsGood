@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
+import { NavigationContainer } from 'react-navigation';
 import { useNavigation } from '@react-navigation/native'
 
 const URL = 'http://172.104.196.152.4000/';
@@ -68,11 +69,11 @@ export default function App() {
       },
     ]
   }
-  const itemList = this.state.reviews.map(review => <Text style={styles.item}>{review.name}   {review.review}</Text>)
+  itemList = this.state.reviews.map(review => <Text style={styles.item}>{review.name}   {review.review}</Text>)
 
   return (
     <View style={styles.container}>
-      <BackButton onPress={() => this.navigation.navigate('viewRestaurant_screen')} title = "back"/>
+      <BackButton onPress={() => navigation.navigate('viewRestaurant_screen')} title = "back"/>
       <Text style={styles.row}>Reviews</Text>
       <StatusBar style="auto"/>
       <View style={styles.container}>

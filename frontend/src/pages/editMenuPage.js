@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { useNavigation } from '@react-navigation/native'
+import { NavigationContainer } from "react-navigation";
 
 const URL = 'http://172.104.196.152.4000/';
 
@@ -37,7 +38,7 @@ export default function App() {
     return (
         <SafeAreaView style={styles.container}>
             <View>
-                <BackButton onPress={() => this.navigation.navigate('viewRestaurant_screen')} title = "back"/>
+                <BackButton onPress={() => navigation.navigate('viewRestaurant_screen')} title = "back"/>
                 <Text style={styles.row}>Edit Menu Item</Text>
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"

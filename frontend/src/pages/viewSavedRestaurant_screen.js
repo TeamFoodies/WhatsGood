@@ -1,78 +1,102 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const URL = 'http://172.104.196.152.4000/';
-
-const BackButton = ({ onPress, title }) => (
-    <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
-      <Text style={styles.BackButton_text}>{title}</Text>
-    </TouchableOpacity>
-)
-
 export default function App() {
   const navigation = useNavigation();
 
-  const savedRestaurants = [
-    {
-      id: 1,
-      name: 'Olive Garden', 
-      distance: 8.00,
-      address: '1538 S. Altar Drive, 97021, CA',
-    },
-    {
-      id: 2,
-      name: 'Quickly', 
-      distance: 16.30,
-      address: '1495 Dumpling Street, 91250, CA',
-    },
-    {
-      id: 3,
-      name: 'Starbucks', 
-      distance: 8.00,
-      address: '1152 E. Gooby Blvd, 95621, CA',
-    },
-    {
-      id: 4,
-      name: 'In-N-Out', 
-      distance: 2.13,
-      address: '1796 Crypto Street, 91250, CA',
-    },
-    {
-      id: 5,
-      name: 'Oyster Depot', 
-      distance: 3.50,
-      address: '1566 Urchin Drive, 90236, CA',
-    },
-    {
-      id: 6,
-      name: 'Taco Bell', 
-      distance: 11.32,
-      address: '1222 Fleming Street, 91400, CA',
-    },
+  const [ favorite, setFavorite ] = useState([]);
+  const [ restaurant, setRestaurant ] = useState(null);
 
-  ]
+  useEffect(() => {
+    const route = global.url + 'user/id/' + global.username;
+    fetch(route, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(response => {
+        switch (response.response) {
+          case 200:
+            setFavorite(response.favorites);
+            break;
+          default:
+            console.log(response);
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }, []);
   
-    const itemList = savedRestaurants.map(savedRestaurant => <Text key={savedRestaurant.id} style={styles.item}>{savedRestaurant.name}    {savedRestaurant.distance} miles {'\n'}
-                                                             Address: {savedRestaurant.address} </Text> )
+  const findRestaurant = (item) => {
+    useEffect(() => {
+      const route = global.url + 'restaurant/id/' + item;
+      fetch(route, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+        .then(response => response.json())
+        .then(response => {
+          switch (response.response) {
+            case 200:
+              setRestaurant(response.restaurant);
+              break;
+            default:
+              console.log(response);
+              break;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }, []);
+  }
 
-  
-    return (
-      <View style={styles.container}>
-        <BackButton onPress={() => navigation.navigate('home_screen')} title = "Back"/>
-  
-        <Text style={styles.row}>Saved Restaurants</Text>
-        <StatusBar style="auto" />
-  
-        <View style={styles.menuContainer}>
-          <ScrollView>
-            {itemList}
-          </ScrollView>
-        </View>
-  
+  const renderSaved = (item) => {
+    {findRestaurant(item)}
+    return(
+      <View style={styles.item}>
+        <Text style={styles.item_header}>{restaurant.name}</Text>
+        {restaurant.address === undefined ? null : <Text style={styles.item_address}>{restaurant.address}</Text>}
       </View>
+    )
+  }
+
+  const renderAll = () => {
+    if(favorite === undefined) return null;
+    return(
+      <View>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.touchable_left} onPress={() => navigation.navigate('homeViewRestaurant_screen')}>
+              <View style={styles.back_button}>
+                <Entypo
+                  style={styles.back_button_content}
+                  name={'chevron-left'}
+                  size={ICON_SIZE}
+                ></Entypo>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.header_title}>View Saved Restaurants</Text>
+          </View>
+        {favorite.map((item) => {renderSaved(findRestaurant(item))})}
+      </View>
+    )
+  }
+
+  return (
+     <ScrollView>
+      {renderAll()}
+     </ScrollView>
     );
   }
   
@@ -87,11 +111,19 @@ export default function App() {
       padding: 1, 
       backgroundColor: '#A0ADB2',
     },
+    header_title: {
+      fontSize: 45,
+      fontWeight: 'bold',
+      color: '#ffffff'
+    },
     row: {
       padding: 15, 
       fontSize: 25,
       textAlign: 'center',
       color: '#2E7DB7',
+    },
+    touchable_left: {
+      marginRight: 'auto',
     },
     item: {
       fontSize: 20,
@@ -99,19 +131,21 @@ export default function App() {
       marginTop: 1,
       backgroundColor: '#D4E5F1',
     },
-    BackButton_container: {
-        backgroundColor: "#A6C6DC",
-        borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 12,
-        marginTop: 10,
-        marginLeft: -15,
-        marginRight: 285,
-        marginBottom: -10,
+    back_button: {
+      flex: 0,
+      width: 'auto',
+      backgroundColor: '#d4d4d4',
+      padding: 20,
+      borderRadius: '50%',
+      justifyContent: 'center',
+      alignItems: 'center'
     },
-    BackButton_text: {
-        fontSize: 15,
-        color: '#D6E3EC',
+    back_button_content: {
+      position: 'absolute',
+      marginHorizontal: 'auto',
+      width: 30,
+      height: 30,
+      color: '#000000'
     },
   
   });

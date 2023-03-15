@@ -15,6 +15,7 @@ const logout_route = require('./routes/logout.route');
 const review_route = require('./routes/review.route');
 const user_route = require('./routes/user.route');
 const favorite_route = require('./routes/favorite.route');
+const menu_route = require('./routes/menu.route');
 
 const app = express();
 app.use(express.json());
@@ -29,6 +30,7 @@ app.use('/logout', logout_route);
 app.use('/review', review_route);
 app.use('/user', user_route);
 app.use('/favorite', favorite_route);
+app.use('/menu', menu_route);
 
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);

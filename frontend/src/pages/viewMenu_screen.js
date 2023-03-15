@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 export default function App({route, navigation}) {
   //const navigation = useNavigation();
 
-  const { restaurantId } = route.params;
+  const { restaurantId, backScreen } = route.params;
   const [ data, setData ] = useState(null);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function App({route, navigation}) {
     return(
       <View>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.touchable_left} onPress={() => navigation.navigate('homeViewRestaurant_screen')}>
+          <TouchableOpacity style={styles.touchable_left} onPress={() => navigation.navigate('viewRestaurant2_screen', {restaurantId: restaurantId, backScreen: backScreen})}>
               <View style={styles.back_button}>
                 <Entypo
                   style={styles.back_button_content}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#D4E5F1',
   },
   row: {
-    padding: 15, 
+    paddingTop: 30,
     fontSize: 35,
     textAlign: 'center',
     color: '#2E7DB7',

@@ -119,7 +119,7 @@ export default function App() {
       textAlign: 'center',
     },
     row: {
-      paddingTop: 35,
+      paddingTop: 40,
       fontSize: 25,
       textAlign: 'center',
       color: '#2E7DB7',

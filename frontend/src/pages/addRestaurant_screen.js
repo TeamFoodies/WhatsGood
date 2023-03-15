@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, TextInput, Button, TouchableOpacity } from 'rea
 import PropTypes from 'prop-types';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MapView, {Marker} from "react-native-maps";
 
 const URL = 'http://172.104.196.152:4000/';
 
@@ -24,8 +25,48 @@ const AddButton = ({ onPress, title }) => (
     </TouchableOpacity>
 )
 
-export default function App() {
-  const navigation = useNavigation();
+const MapSelector = (props) => {
+  const [region, setRegion] = useState({latitude: 0, longitude: 0})
+
+  function updateCenter(region) {
+    setRegion(region);
+    props.changeRegionFunc(region)
+  }
+
+  return (
+    <MapView style={styles.mapSelector} onRegionChange={(region) => updateCenter(region)} showsUserLocation={true} >
+      <Marker coordinate={region} key={0} />
+    </MapView>
+  )
+}
+
+export default function App({ navigation }) {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [region, setRegion] = useState({latitude: 0, longitude: 0})
+
+  const handleAddRestaurant = () => {
+    const route = global.url + 'restaurant/add';
+    fetch(route, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({name: name, address: address, latitude: region.latitude, longitude: region.longitude, auth_key: global.key})
+    })
+      .then((response) => response.json())
+      .then(response => {
+        switch (response.response) {
+          case 200:
+            navigation.navigate('viewRestaurant2_screen', {restaurantId: response.restaurant.id, backScreen: 'home_screen'});
+            break;
+          default:
+            break;
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
   return (
     <View style={styles.app_container}>
        <Box>
@@ -38,20 +79,21 @@ export default function App() {
 
        <View style={styles.entries_layout}>
             <Text style={styles.entries_titles}>     Name: </Text>
-            <TextInput style={styles.entryInput} placeholder="Restaurant Name..." />
+            <TextInput style={styles.entryInput} placeholder="Restaurant Name..." onChangeText={(text) => setName(text)} />
        </View>
 
        <View style={styles.entries_layout}>
             <Text style={styles.entries_titles}> Address: </Text>
-            <TextInput style={styles.entryInput} placeholder="Include City, State, Zip Code..." />
+            <TextInput style={styles.entryInput} placeholder="Include City, State, Zip Code..." onChangeText={text => setAddress(text)} />
        </View>
 
        <View style={styles.center_container}>
-            <Text style={styles.subtitle_Text}> INSERT MAP </Text>
-       </View>
+         <MapSelector changeRegionFunc={setRegion}/>
 
-       <AddButton onPress={() => navigation.navigate('viewRestaurant_screen')}>
-       </AddButton>
+
+         <AddButton onPress={() => handleAddRestaurant()}>
+         </AddButton>
+       </View>
 
     </View>
   );
@@ -121,4 +163,11 @@ const styles = StyleSheet.create({
   subtitle_Text:{
     fontSize: 35,
   },
+  mapSelector: {
+    alignSelf: 'center',
+    width: '90%',
+    height: '60%',
+    marginTop: '5%',
+    marginBottom: '5%'
+  }
 });

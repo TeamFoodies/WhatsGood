@@ -204,7 +204,7 @@ export default function App({ route, navigation }) {
         <Text style={styles.menu_navigation_header}>Menu</Text>
         <View style={styles.button_container}>
           <TouchableOpacity style={[styles.touchable_left, styles.menu_button_touchable_opacity_left]} 
-            onPress={() => navigation.navigate('viewMenu_screen', { restaurantId: restaurantId })}>
+            onPress={() => navigation.navigate('viewMenu_screen', { restaurantId: restaurantId, backScreen: backScreen })}>
             <View style={styles.menu_button_view}>
               <Text style={styles.menu_button_text}>View</Text>
             </View>

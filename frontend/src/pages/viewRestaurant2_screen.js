@@ -7,7 +7,6 @@ export default function App({ route, navigation }) {
 
   const [ starRating, setStarRating ] = useState(Math.random() * 5 + 1);
   const [ data, setData ] = useState(null);
-  const [ review, setReview ] = useState([]);
   const [ favorites, setFavorites ] = useState([]);
   const [ favoriteCount, setFavoriteCount ] = useState(0);
 
@@ -47,8 +46,6 @@ export default function App({ route, navigation }) {
           case 200:
             setData(response.restaurant);
             setFavoriteCount(response.restaurant.favorites);
-            setReview(response.restaurant.reviews);
-            console.log(review);
             break;
           default:
             console.log(response);
@@ -123,6 +120,7 @@ export default function App({ route, navigation }) {
   }
 
   const renderAddress = () => {
+    if (data === null) return null;
     if (data.address === undefined) return null;
     return (
       <Text style={styles.header_address}>{data.address}</Text>
@@ -130,7 +128,6 @@ export default function App({ route, navigation }) {
   }
 
   const renderReview = (item) => {
-    if (review.title === undefined) return null;
     return (
       <View style={styles.review_container}>
         <Text style={styles.review_title_text}>{item.title}</Text>
@@ -195,12 +192,12 @@ export default function App({ route, navigation }) {
     )
   }
 
-
   const renderAddReviewNavigation = () => {
+    if (data === null) return null;
     return (
       <View style={styles.review_header_container}>
         <Text style={styles.review_header_text}>Reviews</Text>
-        <View> 
+        <View>
           {data.reviews.map((item) => renderReview(item))}
         </View>
       </View>
@@ -208,15 +205,11 @@ export default function App({ route, navigation }) {
   }
 
   return (
-       
-
-    //<ScrollView style={styles.container} bounces={false}>
-    <View style={styles.container}>
+    <ScrollView style={styles.container} bounces={false}>
       {renderHeader()}
       {renderMenuNavigation()}
       {renderAddReviewNavigation()}
-    </View>
-    //</ScrollView>
+    </ScrollView>
   );
 }
 

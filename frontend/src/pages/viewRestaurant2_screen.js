@@ -1,4 +1,4 @@
-gimport {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useEffect, useState} from "react";
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 
@@ -150,16 +150,15 @@ export default function App({ route, navigation }) {
     return (
       <View style={styles.review_container}>
         <View style={styles.review_title_container}> 
-          <Text style={styles.review_user_text}>{item.author}:</Text>
+          <Text style={styles.review_user_text}>{item.author} reviewed:</Text>
           <Text style={styles.review_title_text}>{item.title}</Text>
         </View>
         <View style={styles.review_container}>
+          {renderStars(20, item.rating)}
           {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
-          {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
+          {convertDate(item.creation_timestamp)}
         </View>
       </View>
-
-
     )
   }
 
@@ -223,11 +222,11 @@ export default function App({ route, navigation }) {
     if (data === null) return null;
     return (
       <View style={styles.review_header_container}>
-        <Text style={styles.review_header_text}>Reviews</Text>
+        <Text style={styles.review_header_text}>Reviews ({data.reviews.length})</Text>
         <View style={[styles.button_container, styles.add_review_button_container]}>
           <TouchableOpacity style={styles.add_review_button_touchable_opacity}>
             <View style={styles.add_review_button_view}>
-              <Text style={styles.add_review_button_text}>Add Rating</Text>
+              <Text style={styles.add_review_button_text}>Add Review</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -360,7 +359,7 @@ const styles = StyleSheet.create({
     fontSize: 18
   },
   add_review_button_container: {
-    marginBottom: 10
+    marginBottom: 15
   },
   add_review_button_touchable_opacity: {
     width: 'auto',
@@ -387,19 +386,19 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   review_container: {
-    paddingBottom: 10,
+    paddingBottom: 12,
   },
   review_title_container: {
-    paddingBottom: 10,
+    paddingBottom: 4
   },
   review_user_text: {
     fontSize: 18,
+    fontStyle: 'italic',
     paddingBottom: 4,
   },
   review_title_text: {
     fontSize: 20,
     fontWeight: 'bold',
-    paddingBottom: 4,
   },
   review_text: {
     fontSize: 16,

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 //import { StatusBar } from "expo-status-bar";
-import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView, Button } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { TextInput, StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from "react-native";
 import { useNavigation } from '@react-navigation/native'
 import { NavigationContainer } from "react-navigation";
 
@@ -42,21 +41,21 @@ export default function App() {
                 <Text style={styles.row}>Edit Menu Item</Text>
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = " Item name"
+                    placeholder = "Item name"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handleItem}/>
                 
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = " Price"
+                    placeholder = "Price"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handlePrice}/>
 
                 <TextInput style={styles.input}
                     underlineColorAndroid = "transparent"
-                    placeholder = " Description"
+                    placeholder = "Description"
                     placeholderTextColor = "#010101"
                     autoCapitalize = "none"
                     onChangeText = {this.handleDescription}/>

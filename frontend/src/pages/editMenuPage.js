@@ -1,22 +1,43 @@
 import React, { Component } from "react";
-import { TextInput, StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { useNavigation } from '@react-navigation/native'
+import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
+//import { useNavigation } from '@react-navigation/native'
 
 
 const BackButton = ({ onPress, title }) => (
-    <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
-      <Text style={styles.buttonText}>{title}</Text>
+    <TouchableOpacity onPress={onPress} style={styles.backButtonContainer}>
+      <Text style={styles.backButtonText}>{title}</Text>
     </TouchableOpacity>
 )
 
+// sample list of menu items
+const menuItems = [
+    {
+      id: 1,
+      item: 'Popcorn chicken', 
+      price: 8,
+      description: 'Savory deep fried chicken with basil',
+    },
+    {
+      id: 2,
+      item: 'Borger',
+      price: 10,
+      description: 'USDA beef on brioche bun',
+    },
+    {
+      id: 3,
+      item: 'Taco',
+      price: 1,
+      description: 'Corn tortilla with carne asada',
+    },
+]
+
 
 class Inputs extends Component {
-    //navigation = useNavigation();
     
     state = {
-        menu_item: 'Popcorn chicken',
-        price: '8',
-        description: 'Savory deep fried chicken with basil',
+        menu_item: '',
+        price: '',
+        description: '',
     }
     handleItem = (text) => {
         this.setState({ menu_item: text })
@@ -28,52 +49,58 @@ class Inputs extends Component {
         this.setState({ description: text })
     }
     editItem = (item) => {
+        // at the moment just have it alert the user
         alert('Item ' + item + ' updated')
     }
 
     render() {
     return (
         <View style={styles.container}>
-            <View>
+            <ScrollView>
                 <BackButton onPress={() => this.props.navigation.navigate('viewRestaurant_screen')} title = "back"/>
                 <Text style={styles.row}>Edit Menu Item</Text>
-                <TextInput style={styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Item name"
-                    placeholderTextColor = "#010101"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleItem}/>
-                
-                <TextInput style={styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Price"
-                    placeholderTextColor = "#010101"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handlePrice}/>
+                {menuItems.map((item, index) => (
+                <View key={index}>
+                    <TextInput style={styles.input}
+                        underlineColorAndroid = "transparent"
+                        defaultValue = {item.item}
+                        placeholderTextColor = "#010101"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handleItem}/>
+                    
+                    <TextInput style={styles.input}
+                        underlineColorAndroid = "transparent"
+                        defaultValue = {item.price.toString()}
+                        placeholderTextColor = "#010101"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handlePrice}/>
 
-                <TextInput style={styles.input}
-                    underlineColorAndroid = "transparent"
-                    placeholder = "Description"
-                    placeholderTextColor = "#010101"
-                    autoCapitalize = "none"
-                    onChangeText = {this.handleDescription}/>
-            </View>
-            <View style={styles.buttonStyle}>
-                <TouchableOpacity
-                    style = {styles.editButton}
-                    onPress = {
-                        () => this.editItem(this.state.menu_item)
-                    }>
-                        <Text style = {styles.buttonText}> EDIT </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style = {styles.saveButton}
-                    onPress = {
-                        () => this.editItem(this.state.menu_item)
-                    }>
-                        <Text style = {styles.buttonText}> SAVE </Text>
-                </TouchableOpacity>
-            </View>
+                    <TextInput style={styles.input}
+                        underlineColorAndroid = "transparent"
+                        defaultValue = {item.description}
+                        placeholderTextColor = "#010101"
+                        autoCapitalize = "none"
+                        onChangeText = {this.handleDescription}/>
+
+                    <View style={styles.buttonView}>
+                        <TouchableOpacity
+                            style = {styles.editButton}
+                            onPress = {
+                                () => this.editItem(this.state.menu_item)
+                            }>
+                            <Text style = {styles.buttonText}> EDIT </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style = {styles.saveButton}
+                            onPress = {
+                                () => this.editItem(this.state.menu_item)
+                            }>
+                            <Text style = {styles.buttonText}> SAVE </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                ))}
+            </ScrollView>
         </View>
     )
     }
@@ -97,42 +124,44 @@ const styles = StyleSheet.create({
     input: {
         margin: 15,
         height: 40,
-        borderColor: '#C4DAC2',
-        borderWidth: 1
+        borderColor: '#E6E3D3',
+        borderWidth: 1,
+        borderRadius: 5,
+        backgroundColor: '#E6E3D3',
     },
     editButton: {
-        elevation: 8,
+        flex: 1,
+        elevation: 4,
         backgroundColor: "#C4DAC2",
         borderRadius: 20,
-        paddingVertical: 15,
-        paddingHorizontal: 50,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 305,
+        padding: 10,
+        margin: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
     saveButton: {
-        elevation: 8,
+        flex: 1,
+        elevation: 4,
         backgroundColor: "#D6292C",
         borderRadius: 20,
-        paddingVertical: 15,
-        paddingHorizontal: 50,
-        marginLeft: 20,
-        marginRight: 20,
-        marginBottom: 305,
+        padding: 10,
+        margin: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
     },
     buttonText: {
-        fontSize: 24,
+        fontSize: 20,
         color: "#fff",
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"
-    }, 
-    buttonStyle: {
-        flex: 1,
-        flexDirection: "row",
-        justifyContent: "space-around",
     },
-    buttonContainer: {
+    buttonView: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+    backButtonContainer: {
         backgroundColor: '#C4DAC2',
         borderRadius: 20,
         paddingVertical: 12,
@@ -143,9 +172,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         alignItems: 'center',
     },
-    buttonText: {
+    backButtonText: {
         fontSize: 15,
         color: '2E7DB7',
-        justifyContent: 'center',
     },
 });

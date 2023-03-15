@@ -112,4 +112,6 @@ router.post('/add', (request, response) => {
     });
 });
 
-module.exports = router;
+exports.router = router;
+exports.add_schema = add_schema;
+exports.id_schema = id_schema;

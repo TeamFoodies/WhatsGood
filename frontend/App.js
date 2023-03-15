@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { enableLatestRenderer } from "react-native-maps";
 
 // Backend address
 global.url = 'http://172.104.196.152:4000/';
@@ -19,9 +20,8 @@ import editRestaurant_screen from './src/pages/editRestaurant_screen';
 import homeViewRestaurant_screen from './src/pages/homeViewRestaurant_screen';
 import viewRestaurant2_screen from './src/pages/viewRestaurant2_screen';
 
-
 const Stack = createNativeStackNavigator();
-
+enableLatestRenderer();
 
 export default function App() {
   return (

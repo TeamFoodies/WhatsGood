@@ -12,7 +12,8 @@ const restaurant_list_projection = {
 }
 
 async function getRestaurant(id) {
-  let document = await mongo().db('whatsgood').collection('restaurants').findOne({id: id});
+  let document = await mongo().db('whatsgood').collection('restaurants').findOne({id: id}, {projection: {_id: 0}});
+  if (document === null) return null;
   document.favorites = await getFavorites(id);
   return document;
 }

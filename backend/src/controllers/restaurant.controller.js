@@ -106,7 +106,23 @@ async function getCondensedRestaurantList() {
   return await mongo().db('whatsgood').collection('restaurants').find({ }).project(restaurant_list_projection).toArray();
 }
 
+async function editMenu(id, menu, auth_key) {
+  // Get the user by authentication key
+  const user = login_controller.userByKey(auth_key);
+  if (!user || !user.isActive()) return undefined; // Not authorized to edit a restaurant menu
+
+  // Find the restaurant in our database
+  const restaurant = await getRestaurant(id);
+  if (restaurant === null) return -1; // The restaurant does not exist
+
+  await mongo().db('whatsgood').collection('restaurants').updateOne({id: id}, { $set: { menu: menu } })
+  user.bump();
+  restaurant.menu = menu;
+  return restaurant;
+}
+
 exports.getRestaurant = getRestaurant;
 exports.addRestaurant = addRestaurant;
 exports.addReview = addReview;
 exports.getCondensedRestaurantList = getCondensedRestaurantList;
+exports.editMenu = editMenu;

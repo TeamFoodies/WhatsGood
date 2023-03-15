@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { TextInput, StyleSheet, Text, View, TouchableOpacity, ScrollView } from "react-native";
 //import { useNavigation } from '@react-navigation/native'
 
+const URL = 'http://172.104.196.152.4000/';
 
 const BackButton = ({ onPress, title }) => (
     <TouchableOpacity onPress={onPress} style={styles.backButtonContainer}>

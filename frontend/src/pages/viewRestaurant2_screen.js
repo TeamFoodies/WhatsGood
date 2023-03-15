@@ -1,6 +1,7 @@
 import {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useEffect, useState} from "react";
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
+import MapView, {Marker} from "react-native-maps";
 
 export default function App({ route, navigation }) {
   const { restaurantId, backScreen } = route.params;
@@ -218,6 +219,32 @@ export default function App({ route, navigation }) {
     )
   }
 
+  const renderMap = () => {
+    if (data === null) return null;
+    return (
+      <View style={styles.map_container}>
+        <Text style={styles.map_header}>Map</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: data.position.latitude,
+            longitude: data.position.longitude,
+            latitudeDelta: 0.03,
+            longitudeDelta: 0.03
+          }}
+          pitchEnabled={false}
+          rotateEnabled={false}
+          scrollEnabled={false}
+          zoomEnabled={false}
+        >
+          <Marker
+            coordinate = {{ latitude: data.position.latitude, longitude: data.position.longitude }}
+          />
+        </MapView>
+      </View>
+    );
+  }
+
   const renderAddReviewNavigation = () => {
     if (data === null) return null;
     return (
@@ -241,6 +268,7 @@ export default function App({ route, navigation }) {
     <ScrollView style={styles.container} bounces={false}>
       {renderHeader()}
       {renderMenuNavigation()}
+      {renderMap()}
       {renderAddReviewNavigation()}
     </ScrollView>
   );
@@ -357,6 +385,22 @@ const styles = StyleSheet.create({
   menu_button_text: {
     color: '#ffffff',
     fontSize: 18
+  },
+  map_container: {
+    paddingHorizontal: 30,
+    paddingBottom: 10,
+  },
+  map_header: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  map: {
+    width: '100%',
+    height: 200,
+    borderStyle: 'solid',
+    borderColor: '#555',
+    borderWidth: 5
   },
   add_review_button_container: {
     marginBottom: 15

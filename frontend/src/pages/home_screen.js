@@ -68,7 +68,7 @@ export default function App({ navigation }) {
                               style={styles.menuIcon}
                             ></AntDesign>)}
               />
-              <CustomButton title="Submit Restaurant" onPress={() => navigation.navigate('viewRestaurant2_screen', {itemId: 1, url: 'https://google.com/'})}
+              <CustomButton title="Submit Restaurant" onPress={() => navigation.navigate('addRestaurant_screen', {itemId: 1, url: 'https://google.com/'})}
                             icon = {(<Entypo
                               name={'pin'}
                               size={20}

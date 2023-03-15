@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import MapView from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
 import {AntDesign, Entypo, FontAwesome, FontAwesome5, MaterialCommunityIcons} from "@expo/vector-icons";
+import { WGMapView } from '../components/WGMapView';
 
 const CustomButton = ({ title, onPress, icon }) => {
   return (
@@ -40,7 +41,7 @@ export default function App({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} />
+      <WGMapView style={styles.map} navigation={navigation} />
       <LinearGradient colors={['#000000ee', '#00000000']} style={styles.header_container}>
         <View style={styles.header_view}>
           <TouchableOpacity style={styles.menu_touchable_opacity} onPress={() => setMenuOpen(!menuOpen)}>

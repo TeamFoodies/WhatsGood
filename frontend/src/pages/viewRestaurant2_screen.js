@@ -148,7 +148,7 @@ export default function App({ route, navigation }) {
 
   const renderReview = (item) => {
     return (
-      <View style={styles.review_container}>
+      <View style={styles.review_container} key={item.id}>
         <View style={styles.review_title_container}> 
           <Text style={styles.review_user_text}>{item.author} reviewed:</Text>
           <Text style={styles.review_title_text}>{item.title}</Text>

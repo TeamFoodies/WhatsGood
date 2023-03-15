@@ -218,6 +218,13 @@ export default function App({ route, navigation }) {
     return (
       <View style={styles.review_header_container}>
         <Text style={styles.review_header_text}>Reviews</Text>
+        <View style={[styles.button_container, styles.add_review_button_container]}>
+          <TouchableOpacity style={styles.add_review_button_touchable_opacity}>
+            <View style={styles.add_review_button_view}>
+              <Text style={styles.add_review_button_text}>Add Rating</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
         <View>
           {data.reviews.map((item) => renderReview(item))}
         </View>
@@ -336,27 +343,45 @@ const styles = StyleSheet.create({
     width: '48%'
   },
   menu_button_view: {
-    backgroundColor: '#b7b7b7',
+    backgroundColor: '#a1a1a1',
     paddingVertical: 10,
     borderRadius: '20%',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 10,
   },
   menu_button_text: {
     color: '#ffffff',
     fontSize: 18
   },
+  add_review_button_container: {
+    marginBottom: 10
+  },
+  add_review_button_touchable_opacity: {
+    width: 'auto',
+    flex: 1,
+  },
+  add_review_button_view: {
+    backgroundColor: '#a1a1a1',
+    paddingVertical: 10,
+    borderRadius: '20%',
+    alignItems: 'center'
+  },
+  add_review_button_text: {
+    color: '#ffffff',
+    fontSize: 18
+  },
   review_header_container: {
-    marginTop: 20,
+    marginTop: 10,
     paddingHorizontal: 30,
     paddingBottom: 25,
   },
   review_header_text: {
     fontSize: 28,
     fontWeight: 'bold',
+    marginBottom: 10
   },
   review_container: {
     paddingBottom: 10,
-
   },
   review_title_text: {
     fontSize: 20,

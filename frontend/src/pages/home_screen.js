@@ -3,11 +3,12 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import MapView from "react-native-maps";
 import LinearGradient from "react-native-linear-gradient";
-import {FontAwesome5} from "@expo/vector-icons";
+import {AntDesign, Entypo, FontAwesome, FontAwesome5, MaterialCommunityIcons} from "@expo/vector-icons";
 
-const CustomButton = ({ title, onPress}) => {
+const CustomButton = ({ title, onPress, icon }) => {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
+      {icon}
       <Text style={styles.buttonText}>{title}</Text>
     </TouchableOpacity>
   );
@@ -54,12 +55,35 @@ export default function App({ navigation }) {
       {
         menuOpen ? (
           <View style={styles.box}>
-            <Text style={styles.boxText}>HOME</Text>
             <View style={styles.buttonContainer}>
-              <CustomButton title="View restaurants" onPress={() => navigation.navigate('homeViewRestaurant_screen')} />
-              <CustomButton title="View saved restaurants" onPress={() => navigation.navigate('viewSavedRestaurant_screen')} />
-              <CustomButton title="Log restaurant" onPress={() => navigation.navigate('viewRestaurant2_screen', {itemId: 1, url: 'https://google.com/'})} />
-              <CustomButton title="Log out" onPress={() => handleLogout()} />
+              <CustomButton title="All Restaurants" onPress={() => navigation.navigate('homeViewRestaurant_screen')}
+                            icon = {(<MaterialCommunityIcons
+                              name={'food-fork-drink'}
+                              size={20}
+                              style={styles.menuIcon}
+                            ></MaterialCommunityIcons>)}
+              />
+              <CustomButton title="Favorites" onPress={() => navigation.navigate('viewSavedRestaurant_screen')}
+                            icon = {(<AntDesign
+                              name={'heart'}
+                              size={20}
+                              style={styles.menuIcon}
+                            ></AntDesign>)}
+              />
+              <CustomButton title="Submit Restaurant" onPress={() => navigation.navigate('viewRestaurant2_screen', {itemId: 1, url: 'https://google.com/'})}
+                            icon = {(<Entypo
+                              name={'pin'}
+                              size={20}
+                              style={styles.menuIcon}
+                            ></Entypo>)}
+              />
+              <CustomButton title="Log Out" onPress={() => handleLogout()}
+                            icon = {(<MaterialCommunityIcons
+                              name={'exit-run'}
+                              size={20}
+                              style={styles.menuIcon}
+                            ></MaterialCommunityIcons>)}
+              />
             </View>
           </View>
         ) : null
@@ -92,9 +116,7 @@ const styles = StyleSheet.create({
   box: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: "#C4DAC2",
-    borderRadius: 30,
-    padding: 20,
+    marginLeft: 0,
   },
   boxText: {
     fontSize: 20,
@@ -102,19 +124,28 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: 5,
+    justifyContent: 'center'
+  },
+  menuIcon: {
+    color: '#ffffff',
   },
   button: {
-    backgroundColor: "#FFC300",
-    borderRadius: 20,
-    padding: 10,
+    backgroundColor: "#00000033",
+    borderTopRightRadius: 1000,
+    borderBottomRightRadius: 1000,
+    paddingVertical: 10,
+    paddingRight: 30,
+    paddingLeft: 30,
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 3,
+    flexDirection: 'row'
   },
   buttonText: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#FFFFFF",
+    marginLeft: 10,
   },
   map: {
     position: "absolute",

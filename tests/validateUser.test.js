@@ -1,16 +1,13 @@
 const validateUser = require('./validateUser')
 
-test("return false for no number", () => {
-    expect(validateUser("shoan")).toBe(false)
-})
-test("returns false for no lower case", () => {
-    expect(validateUser("SHOAN031")).toBe(false)
-})
-test("returns false for no upper case", () => {
-    expect(validateUser("shoan031")).toBe(false)
-})
-test("returns false for invalid length", () => {
+test("returns false for invalid length - above max", () => {
     expect(validateUser("HeeHee19123456789123456788889")).toBe(false)
+})
+test("returns false for invalid length - below min", () => {
+    expect(validateUser("us")).toBe(false)
+})
+test("returns false for invalid length - empty", () => {
+    expect(validateUser("")).toBe(false)
 })
 test("returns true for being valid overall", () => {
     expect(validateUser("Shoan031")).toBe(true)

@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Entypo} from "@expo/vector-icons";
 
 export default function App() {
   const navigation = useNavigation();
 
   const [ favorite, setFavorite ] = useState([]);
-  const [ restaurant, setRestaurant ] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
     const route = global.url + 'user/id/' + global.username;
@@ -22,7 +21,9 @@ export default function App() {
       .then(response => {
         switch (response.response) {
           case 200:
-            setFavorite(response.favorites);
+            setFavorite(response.user.favorites);
+            setRestaurants([]);
+            findRestaurant(response.user.favorites)
             break;
           default:
             console.log(response);
@@ -34,8 +35,10 @@ export default function App() {
       })
   }, []);
   
-  const findRestaurant = (item) => {
-    useEffect(() => {
+  const findRestaurant = (favorites) => {
+    if (favorites === null) return;
+    let newRestaurants = [];
+    favorites.forEach((item) => {
       const route = global.url + 'restaurant/id/' + item;
       fetch(route, {
         method: 'GET',
@@ -47,7 +50,7 @@ export default function App() {
         .then(response => {
           switch (response.response) {
             case 200:
-              setRestaurant(response.restaurant);
+              newRestaurants = [...newRestaurants, response.restaurant];
               break;
             default:
               console.log(response);
@@ -57,17 +60,16 @@ export default function App() {
         .catch(error => {
           console.log(error);
         })
-    }, []);
+        .finally(() => setRestaurants(newRestaurants));
+    })
   }
 
-  const renderSaved = (item) => {
-    {findRestaurant(item)}
-    return(
-      <View style={styles.item}>
-        <Text style={styles.item_header}>{restaurant.name}</Text>
-        {restaurant.address === undefined ? null : <Text style={styles.item_address}>{restaurant.address}</Text>}
-      </View>
-    )
+  const renderRestaurant = (item) => {
+    if (item === null) return null;
+    return (<TouchableOpacity style={styles.item} onPress={() => navigation.navigate('viewRestaurant2_screen', {restaurantId: item.id, backScreen: 'viewSavedRestaurant_screen'})}>
+      <Text style={styles.item_header}>{item.name}</Text>
+      {item.address === undefined ? null : <Text style={styles.item_address}>{item.address}</Text>}
+    </TouchableOpacity>)
   }
 
   const renderAll = () => {
@@ -75,12 +77,12 @@ export default function App() {
     return(
       <View>
         <View style={styles.row}>
-          <TouchableOpacity style={styles.touchable_left} onPress={() => navigation.navigate('homeViewRestaurant_screen')}>
+          <TouchableOpacity style={styles.touchable_left} onPress={() => navigation.navigate('home_screen')}>
               <View style={styles.back_button}>
                 <Entypo
                   style={styles.back_button_content}
                   name={'chevron-left'}
-                  size={ICON_SIZE}
+                  size={28}
                 ></Entypo>
               </View>
             </TouchableOpacity>
@@ -88,13 +90,13 @@ export default function App() {
           <View>
             <Text style={styles.header_title}>View Saved Restaurants</Text>
           </View>
-        {favorite.map((item) => {renderSaved(findRestaurant(item))})}
+        {restaurants.map((item) => renderRestaurant(item))}
       </View>
     )
   }
 
   return (
-     <ScrollView>
+     <ScrollView style={styles.container} bounces={false}>
       {renderAll()}
      </ScrollView>
     );
@@ -103,21 +105,21 @@ export default function App() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      padding: 40, 
+      padding: 20,
       backgroundColor: '#AEBBC4',
     },
     menuContainer: {
       flex: 1,
-      padding: 1, 
+      padding: 5,
       backgroundColor: '#A0ADB2',
     },
     header_title: {
       fontSize: 45,
       fontWeight: 'bold',
-      color: '#ffffff'
+      textAlign: 'center',
     },
     row: {
-      padding: 15, 
+      paddingTop: 35,
       fontSize: 25,
       textAlign: 'center',
       color: '#2E7DB7',
@@ -147,5 +149,11 @@ export default function App() {
       height: 30,
       color: '#000000'
     },
-  
+    item_header: {
+      fontSize: 22,
+      fontWeight: 'bold'
+    },
+    item_address: {
+      fontSize: 18
+    },
   });

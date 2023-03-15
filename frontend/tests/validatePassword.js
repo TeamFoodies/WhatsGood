@@ -42,6 +42,7 @@ function validatePassword(password){
         }
     }
 
+    
     const validPassword = validLength && hasLowerLetter && hasUpperLetter && hasNumber && !hasInvalidSpecialChar
     return validPassword
 }

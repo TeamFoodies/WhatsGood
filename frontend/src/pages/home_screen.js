@@ -43,7 +43,7 @@ export default function App() {
         <View style={styles.buttonContainer}>
           <CustomButton title="View restaurants" onPress={() => navigation.navigate('homeViewRestaurant_screen')} />
           <CustomButton title="View saved restaurants" onPress={() => navigation.navigate('viewSavedRestaurant_screen')} />
-          <CustomButton title="Log restaurant" onPress={() => navigation.navigate('addRestaurant_screen')} />
+          <CustomButton title="Log restaurant" onPress={() => navigation.navigate('viewRestaurant2_screen', {itemId: 1, url: 'https://google.com/'})} />
           <CustomButton title="Log out" onPress={() => handleLogout()} />
         </View>
       </View>

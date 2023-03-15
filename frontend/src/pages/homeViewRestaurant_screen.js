@@ -49,6 +49,17 @@ export default function App() {
         })
     }, []);
 
+    const renderItem = (item) => {
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate('viewRestaurant2_screen', { restaurantId: item.id, backScreen: 'homeViewRestaurant_screen' })}>
+          <View style={styles.item}>
+            <Text style={styles.item_header}>{item.name}</Text>
+            {item.address === undefined ? null : <Text style={styles.item_address}>{item.address}</Text>}
+          </View>
+        </TouchableOpacity>
+      )
+    }
+
     return (
         <View style={styles.container}>
           <BackButton onPress={() => navigation.navigate('home_screen')} title = "Back"/>
@@ -59,9 +70,9 @@ export default function App() {
           <View style={styles.menuContainer}>
             <FlatList 
                 data={list}
-                renderItem={({ item }) => 
+                renderItem={({ item }) =>
                     <View style={styles.menuContainer}>
-                        <Text style={styles.item}>Name: {item.name} </Text>
+                      {renderItem(item)}
                     </View>}
                 keyExtractor={item => item.id}
             />
@@ -95,6 +106,13 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       overflow: 'hidden',
       backgroundColor: '#D4E5F1',
+    },
+    item_header: {
+      fontSize: 22,
+      fontWeight: 'bold'
+    },
+    item_address: {
+      fontSize: 18
     },
     DeleteBtn_container: {
 

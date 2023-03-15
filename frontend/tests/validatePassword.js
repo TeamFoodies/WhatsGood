@@ -33,17 +33,8 @@ function validatePassword(password){
         }
     }
 
-    //checks for special characters that aren't underscore
-    let hasInvalidSpecialChar = false
-    const specialChar = "!@#$%^&*()<>?.,/"
-    for(const char of specialChar){
-        if(password.includes(char)){
-            hasInvalidSpecialChar = true
-        }
-    }
-
     
-    const validPassword = validLength && hasLowerLetter && hasUpperLetter && hasNumber && !hasInvalidSpecialChar
+    const validPassword = validLength && hasLowerLetter && hasUpperLetter && hasNumber
     return validPassword
 }
 module.exports = validatePassword

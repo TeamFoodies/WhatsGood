@@ -91,7 +91,7 @@ class Inputs extends Component {
                     <View key={index}>
                         <TextInput style={styles.input}
                             underlineColorAndroid = "transparent"
-                            defaultValue = {item.item}
+                            defaultValue = {item.name}
                             placeholderTextColor = "#010101"
                             autoCapitalize = "none"
                             onChangeText = {this.handleItem}/>

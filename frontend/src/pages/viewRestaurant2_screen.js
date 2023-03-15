@@ -149,10 +149,14 @@ export default function App({ route, navigation }) {
   const renderReview = (item) => {
     return (
       <View style={styles.review_container}>
-        <Text style={styles.review_title_text}>{item.author}:  {item.title}</Text>
-        {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
-        {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
-        
+        <View style={styles.review_title_container}> 
+          <Text style={styles.review_user_text}>{item.author}:</Text>
+          <Text style={styles.review_title_text}>{item.title}</Text>
+        </View>
+        <View style={styles.review_container}>
+          {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
+          {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
+        </View>
       </View>
 
 
@@ -384,7 +388,13 @@ const styles = StyleSheet.create({
   },
   review_container: {
     paddingBottom: 10,
-
+  },
+  review_title_container: {
+    paddingBottom: 10,
+  },
+  review_user_text: {
+    fontSize: 18,
+    paddingBottom: 4,
   },
   review_title_text: {
     fontSize: 20,

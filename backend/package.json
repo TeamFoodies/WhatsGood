@@ -2,6 +2,16 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "Backend application for WhatsGood",
+  "babel": {
+    "env": {
+      "test": {
+        "presets": [
+          "env",
+          "react"
+        ]
+      }
+    }
+  },
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,5 +33,11 @@
     "joi": "^17.8.3",
     "mongodb": "5.1",
     "nanoid": "^4.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
+    "babel-jest": "^29.5.0",
+    "babel-preset-env": "^1.7.0"
   }
 }

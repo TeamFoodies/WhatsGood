@@ -1,4 +1,4 @@
-//alpha numeric underscore 
+//a valid pass: alphabet, numerics, underscore, no special chars, 3-20 chars
 function validatePassword(password){
     //checks valid length
     const minLength = 3

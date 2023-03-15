@@ -1,11 +1,11 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useEffect, useState} from "react";
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 
 export default function App({ route, navigation }) {
   const { restaurantId, backScreen } = route.params;
 
-  const [ starRating, setStarRating ] = useState(Math.random() * 5 + 1);
+  const [ starRating, setStarRating ] = useState(null);
   const [ data, setData ] = useState(null);
   const [ favorites, setFavorites ] = useState([]);
   const [ favoriteCount, setFavoriteCount ] = useState(0);
@@ -46,6 +46,7 @@ export default function App({ route, navigation }) {
           case 200:
             setData(response.restaurant);
             setFavoriteCount(response.restaurant.favorites);
+            setStarRating(averageReviews(response.restaurant));
             break;
           default:
             console.log(response);
@@ -58,6 +59,13 @@ export default function App({ route, navigation }) {
 
       getAndUpdateFavorites();
   }, []);
+
+  const averageReviews = (data) => {
+    if (data === null || data.reviews === null) return null;
+    let total = 0;
+    data.reviews.forEach((item) => total += item.rating);
+    return total / data.reviews.length;
+  }
 
   const doFavorite = (action) => {
     const route = global.url + 'favorite/' + action;
@@ -113,49 +121,78 @@ export default function App({ route, navigation }) {
         <View style={styles.header_text_container}>
           <Text style={styles.header_title}>{data.name}</Text>
           {renderAddress()}
-          {renderStars()}
+          {renderStars(ICON_SIZE, starRating)}
         </View>
       </View>
     );
   }
 
   const renderAddress = () => {
+    if (data === null) return null;
     if (data.address === undefined) return null;
     return (
       <Text style={styles.header_address}>{data.address}</Text>
     )
   }
+  //REFERENCES: https://stackoverflow.com/questions/61729380/how-to-convert-timestamp-value-to-specific-time-format-using-react-native
+  const convertDate = (time) => {
+    var curr_date = new Date(time)
+    var formatted = ('0' + (curr_date.getMonth() + 1)).slice(-2)
+    + '/' + ('0' + curr_date.getDate()).slice(-2) 
+    + '/' + (curr_date.getFullYear())
+
+    return (
+      <Text style={styles.review_date_text}>{formatted}</Text>
+    )
+  }
+
+  const renderReview = (item) => {
+    return (
+      <View style={styles.review_container} key={item.id}>
+        <View style={styles.review_title_container}> 
+          <Text style={styles.review_user_text}>{item.author} reviewed:</Text>
+          <Text style={styles.review_title_text}>{item.title}</Text>
+        </View>
+        <View style={styles.review_container}>
+          {renderStars(20, item.rating)}
+          {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
+          {convertDate(item.creation_timestamp)}
+        </View>
+      </View>
+    )
+  }
+
 
   const ICON_SIZE = 28;
 
   // REFERENCE: https://www.atomlab.dev/tutorials/react-native-star-rating
-  const renderStars = () => {
+  const renderStars = (size, rating) => {
     return (
       <View style={styles.stars}>
         <MaterialIcons
-          name={starRating >= 1 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 1 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 1 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 1 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 2 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 2 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 2 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 2 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 3 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 3 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 3 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 3 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 4 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 4 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 4 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 4 ? styles.starSelected : styles.starUnselected}
         />
         <MaterialIcons
-          name={starRating >= 5 ? 'star' : 'star-border'}
-          size={ICON_SIZE}
-          style={starRating >= 5 ? styles.starSelected : styles.starUnselected}
+          name={rating >= 5 ? 'star' : 'star-border'}
+          size={size}
+          style={rating >= 5 ? styles.starSelected : styles.starUnselected}
         />
       </View>
     );
@@ -181,11 +218,31 @@ export default function App({ route, navigation }) {
     )
   }
 
+  const renderAddReviewNavigation = () => {
+    if (data === null) return null;
+    return (
+      <View style={styles.review_header_container}>
+        <Text style={styles.review_header_text}>Reviews ({data.reviews.length})</Text>
+        <View style={[styles.button_container, styles.add_review_button_container]}>
+          <TouchableOpacity style={styles.add_review_button_touchable_opacity}>
+            <View style={styles.add_review_button_view}>
+              <Text style={styles.add_review_button_text}>Add Review</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <View>
+          {data.reviews.map((item) => renderReview(item))}
+        </View>
+      </View>
+    )
+  }
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} bounces={false}>
       {renderHeader()}
       {renderMenuNavigation()}
-    </View>
+      {renderAddReviewNavigation()}
+    </ScrollView>
   );
 }
 
@@ -291,13 +348,65 @@ const styles = StyleSheet.create({
     width: '48%'
   },
   menu_button_view: {
-    backgroundColor: '#b7b7b7',
+    backgroundColor: '#a1a1a1',
     paddingVertical: 10,
     borderRadius: '20%',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 10,
   },
   menu_button_text: {
     color: '#ffffff',
     fontSize: 18
-  }
+  },
+  add_review_button_container: {
+    marginBottom: 15
+  },
+  add_review_button_touchable_opacity: {
+    width: 'auto',
+    flex: 1,
+  },
+  add_review_button_view: {
+    backgroundColor: '#a1a1a1',
+    paddingVertical: 10,
+    borderRadius: '20%',
+    alignItems: 'center'
+  },
+  add_review_button_text: {
+    color: '#ffffff',
+    fontSize: 18
+  },
+  review_header_container: {
+    marginTop: 10,
+    paddingHorizontal: 30,
+    paddingBottom: 25,
+  },
+  review_header_text: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 10
+  },
+  review_container: {
+    paddingBottom: 12,
+  },
+  review_title_container: {
+    paddingBottom: 4
+  },
+  review_user_text: {
+    fontSize: 18,
+    fontStyle: 'italic',
+    paddingBottom: 4,
+  },
+  review_title_text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  review_text: {
+    fontSize: 16,
+    paddingTop: 4,
+    paddingBottom: 4
+  },
+  review_date_text: {
+    fontSize: 16,
+    color: '#939B9B',
+  },
 })

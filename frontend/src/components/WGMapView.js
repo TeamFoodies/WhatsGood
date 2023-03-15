@@ -25,10 +25,7 @@ export const WGMapView = (props) => {
 
   React.useEffect(() => {
     // Asynchronously query grabbing of markers
-    fetchData().then((data) => {
-      setMarkers(data.restaurants)
-      console.log(data)
-    }).catch((err) => console.log(err));
+    fetchData().then((data) => setMarkers(data.restaurants)).catch((err) => console.log(err));
   }, [lastUpdate])
 
   return (
@@ -49,7 +46,6 @@ class MarkerComponent extends Component {
   }
 
   renderMarkers() {
-    console.log('Attempting render of ' + this.props.markers.length + ' markers!')
     return this.props.markers.map((importedMarker) => <Marker
         key = {importedMarker.id}
         title = {importedMarker.name}

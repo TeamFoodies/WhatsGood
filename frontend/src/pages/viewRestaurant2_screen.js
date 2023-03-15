@@ -251,7 +251,7 @@ export default function App({ route, navigation }) {
       <View style={styles.review_header_container}>
         <Text style={styles.review_header_text}>Reviews ({data.reviews.length})</Text>
         <View style={[styles.button_container, styles.add_review_button_container]}>
-          <TouchableOpacity style={styles.add_review_button_touchable_opacity}>
+          <TouchableOpacity style={styles.add_review_button_touchable_opacity} onPress={() => navigation.navigate('addReview_screen', {restaurantId: restaurantId, backScreen: backScreen})}>
             <View style={styles.add_review_button_view}>
               <Text style={styles.add_review_button_text}>Add Review</Text>
             </View>

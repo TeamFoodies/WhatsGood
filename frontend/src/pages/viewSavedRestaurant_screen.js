@@ -1,11 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {Entypo} from "@expo/vector-icons";
 
-export default function App() {
-  const navigation = useNavigation();
-
+export default function App({ navigation }) {
   const [ favorite, setFavorite ] = useState([]);
   const [restaurants, setRestaurants] = useState([]);
 

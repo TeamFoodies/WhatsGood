@@ -75,6 +75,7 @@ export default function App({ navigation }) {
           placeholderTextColor="#003f5c"
           onChangeText={(username) => setUsername(username)}
           autoCapitalize='none'
+          autoCorrect={false}
         />
       </View>
       <View style={styles.inputView}>

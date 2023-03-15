@@ -1,46 +1,82 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { Entypo } from '@expo/vector-icons';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-const URL = 'http://172.104.196.152.4000/';
+export default function App({route, navigation}) {
+  //const navigation = useNavigation();
 
-const BackButton = ({ onPress, title }) => (
-    <TouchableOpacity onPress={onPress} style={styles.BackButton_container}>
-      <Text style={styles.BackButton_text}>{title}</Text>
-    </TouchableOpacity>
-)
+  const { restaurantId } = route.params;
+  const [ data, setData ] = useState(null);
 
-export default function App() {
-  const navigation = useNavigation();
+  useEffect(() => {
+    const route = global.url + 'restaurant/id/' + restaurantId;
+    fetch(route, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then(response => {
+        switch (response.response) {
+          case 200:
+            setData(response.restaurant);
+            break;
+          default:
+            console.log(response);
+            break;
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }, []);
 
-  const menuItems = [
-    {
-      id: 1,
-      item: 'Popcorn chicken', 
-      price: 8,
-      description: 'Savory deep fried chicken with basil',
-    },
-  ]
+  const renderMenuItem = (item) => {
+    return(
+      <View style={styles.menuContainer} key={item.id}>
+        <View style={styles.item_top_container}>
+          <Text style={styles.item_name_text}>{item.name}</Text>
+          <Text style={styles.item_price_text}>${item.price}</Text>
+        </View>
+        <View>
+          <Text style={styles.item_description_text}>{item.description}</Text>
+        </View>
+      </View>
+    )
+  }
+  const ICON_SIZE = 28;
 
-  const itemList = menuItems.map(menuItem => <Text style={styles.item}>{menuItem.item}   ${menuItem.price} {'\n'} 
-                                              Description: {menuItem.description} </Text> )
+  const renderMenu = () => {
+    if (data === null) return null;
+    return(
+      <View>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.touchable_left} onPress={() => navigation.navigate('homeViewRestaurant_screen')}>
+              <View style={styles.back_button}>
+                <Entypo
+                  style={styles.back_button_content}
+                  name={'chevron-left'}
+                  size={ICON_SIZE}
+                ></Entypo>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.header_title}>View Menu</Text>
+          </View>
+        {data.menu === undefined ? null : <View style={styles.row}>{data.menu.map((item) => renderMenuItem(item))}</View>}  
+      </View>
+    )
+  }
 
   return (
-    <View style={styles.container}>
-      <BackButton onPress={() => navigation.navigate('viewRestaurant_screen')} title = "Back"/>
-      
-      <Text style={styles.row}>Menu Items</Text>
-      <StatusBar style="auto" />
-
-      <View style={styles.menuContainer}>
-        <ScrollView>
-        {itemList}
-        </ScrollView>
-      </View>
-
-    </View>
+    <ScrollView style={styles.container} bounces={false}>
+      {renderMenu()}
+    </ScrollView>
   );
 }
 
@@ -48,12 +84,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 50, 
-    backgroundColor: '#79878D',
+    backgroundColor: '#e7e7e7',
+  },
+  header_title: {
+    fontSize: 45,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   menuContainer: {
     flex: 1,
     padding: 1, 
-    backgroundColor: '#A0ADB2',
+    borderRadius: 3,
+    backgroundColor: '#D4E5F1',
   },
   row: {
     padding: 15, 
@@ -61,25 +103,41 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#2E7DB7',
   },
-  item: {
-    fontSize: 20,
-    padding: 10,
-    marginTop: 1,
-    backgroundColor: '#D4E5F1',
+  touchable_left: {
+    marginRight: 'auto',
   },
-  BackButton_container: {
-    backgroundColor: "#A6C6DC",
-    borderRadius: 20,
+  item_top_container: {
+    flex: 1,
     paddingVertical: 10,
-    paddingHorizontal: 12,
-    marginTop: 10,
-    marginLeft: -15,
-    marginRight: 265,
-    marginBottom: -10,
-},
-BackButton_text: {
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+  },
+  item_name_text: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  item_price_text: {
+    fontSize: 20,
+    marginLeft: 'auto',
+  },
+  item_description_text: {
     fontSize: 15,
-    color: '#D6E3EC',
-},
+  },
+  back_button: {
+    flex: 0,
+    width: 'auto',
+    backgroundColor: '#d4d4d4',
+    padding: 20,
+    borderRadius: '50%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  back_button_content: {
+    position: 'absolute',
+    marginHorizontal: 'auto',
+    width: 30,
+    height: 30,
+    color: '#000000'
+  },
 
 });

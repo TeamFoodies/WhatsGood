@@ -162,7 +162,6 @@ export default function App({ route, navigation }) {
     )
   }
 
-
   const ICON_SIZE = 28;
 
   // REFERENCE: https://www.atomlab.dev/tutorials/react-native-star-rating
@@ -203,7 +202,8 @@ export default function App({ route, navigation }) {
       <View style={styles.menu_navigation_container}>
         <Text style={styles.menu_navigation_header}>Menu</Text>
         <View style={styles.button_container}>
-          <TouchableOpacity style={[styles.touchable_left, styles.menu_button_touchable_opacity_left]}>
+          <TouchableOpacity style={[styles.touchable_left, styles.menu_button_touchable_opacity_left]} 
+            onPress={() => navigation.navigate('viewMenu_screen', { restaurantId: restaurantId })}>
             <View style={styles.menu_button_view}>
               <Text style={styles.menu_button_text}>View</Text>
             </View>

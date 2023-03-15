@@ -10,14 +10,6 @@ const BackButton = ({ onPress, title }) => (
     </TouchableOpacity>
 )
 
-const DeleteBtn = ({ onPress }) => (
-    <TouchableOpacity onPress={onPress} style={styles.DeleteBtn_container}>
-        <Text style={styles.DeleteBtn_text}>Delete</Text>
-    </TouchableOpacity>
-)
-
-
-
 export default function App() {
     const navigation = useNavigation();
 

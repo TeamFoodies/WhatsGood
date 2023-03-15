@@ -2,14 +2,9 @@
   "name": "frontend",
   "version": "1.0.0",
   "babel": {
-    "env": {
-      "test": {
-        "presets": [
-          "env",
-          "react"
-        ]
-      }
-    }
+    "presets": [
+      "@babel/preset-env"
+    ]
   },
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {

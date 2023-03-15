@@ -8,6 +8,7 @@ const restaurant_list_projection = {
   id: 1,
   name: 1,
   address: 1,
+  position: 1,
   _id: 0
 }
 

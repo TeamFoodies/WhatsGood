@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
+gimport {StyleSheet, Text, View, TouchableOpacity, ScrollView, FlatList} from 'react-native';
 import {useEffect, useState} from "react";
 import { AntDesign, MaterialIcons, Entypo } from '@expo/vector-icons';
 
@@ -150,10 +150,12 @@ export default function App({ route, navigation }) {
     return (
       <View style={styles.review_container}>
         <Text style={styles.review_title_text}>{item.author}:  {item.title}</Text>
-        {renderStars(20, item.rating)}
         {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
-        {convertDate(item.creation_timestamp)}
+        {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
+        
       </View>
+
+
     )
   }
 
@@ -382,6 +384,7 @@ const styles = StyleSheet.create({
   },
   review_container: {
     paddingBottom: 10,
+
   },
   review_title_text: {
     fontSize: 20,

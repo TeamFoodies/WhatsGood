@@ -43,4 +43,5 @@ router.get('/id/:user_id', (request, response) => {
     })
 });
 
-module.exports = router;
+exports.router = router;
+exports.id_schema = id_schema;

@@ -36,4 +36,5 @@ router.post('/', (request, response) => {
   response.end(JSON.stringify(valid_response));
 });
 
-module.exports = router;
+exports.router = router;
+exports.schema = schema;

@@ -51,4 +51,5 @@ router.post('/', (request, response) => {
     });
 });
 
-module.exports = router;
+exports.router = router;
+exports.schema = schema;

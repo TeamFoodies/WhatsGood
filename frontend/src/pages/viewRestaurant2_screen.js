@@ -126,12 +126,26 @@ export default function App({ route, navigation }) {
       <Text style={styles.header_address}>{data.address}</Text>
     )
   }
+  //REFERENCES: https://stackoverflow.com/questions/61729380/how-to-convert-timestamp-value-to-specific-time-format-using-react-native
+  const convertDate = (time) => {
+    var curr_date = new Date(time)
+    var formatted = ('0' + (curr_date.getMonth() + 1)).slice(-2)
+    + '/' + ('0' + curr_date.getDate()).slice(-2) 
+    + '/' + (curr_date.getFullYear())
+
+    return (
+      <Text style={styles.review_date_text}>{formatted}</Text>
+    )
+  }
 
   const renderReview = (item) => {
     return (
       <View style={styles.review_container}>
+        <Text></Text>
         <Text style={styles.review_title_text}>{item.title}</Text>
         {item.content === undefined ? null : <Text style={styles.review_text}>{item.content}</Text>}
+        {item.creation_timestamp === undefined ? null : convertDate(item.creation_timestamp)}
+        
       </View>
     )
   }
@@ -327,14 +341,14 @@ const styles = StyleSheet.create({
   review_header_container: {
     marginTop: 20,
     paddingHorizontal: 30,
+    paddingBottom: 25,
   },
   review_header_text: {
     fontSize: 28,
     fontWeight: 'bold',
   },
   review_container: {
-    backgroundColor: 'ADBBBB',
-    paddingTop: 10,
+    paddingBottom: 10,
 
   },
   review_title_text: {
@@ -345,6 +359,9 @@ const styles = StyleSheet.create({
   review_text: {
     fontSize: 16,
   },
-
+  review_date_text: {
+    fontSize: 16,
+    color: '#939B9B',
+  }
 
 })
